@@ -1,0 +1,5 @@
+C:\Users\Trilogo\Desktop\OPN\OPN.Services\obj\Debug\net6.0\OPN.Services.csproj.AssemblyReference.cache
+C:\Users\Trilogo\Desktop\OPN\OPN.Services\obj\Debug\net6.0\OPN.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Trilogo\Desktop\OPN\OPN.Services\obj\Debug\net6.0\OPN.Services.AssemblyInfoInputs.cache
+C:\Users\Trilogo\Desktop\OPN\OPN.Services\obj\Debug\net6.0\OPN.Services.AssemblyInfo.cs
+C:\Users\Trilogo\Desktop\OPN\OPN.Services\obj\Debug\net6.0\OPN.Services.csproj.CoreCompileInputs.cache
