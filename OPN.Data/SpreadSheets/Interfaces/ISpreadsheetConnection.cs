@@ -9,5 +9,6 @@ namespace OPN.Data.SpreadSheets.Interfaces
     public interface ISpreadsheetConnection
     {
         public Dictionary<string, List<string>> GetColumnsFromSpreadsheet(string spreadsheetId, string page, List<string> columns );
+        public void AppendRowToSpreadsheet(string spreadsheetId, string page, List<string> valuesToAppend);
     }
 }

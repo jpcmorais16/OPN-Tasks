@@ -1,4 +1,5 @@
 ﻿using OPN.Domain;
+using OPN.Domain.Interfaces;
 using OPN.Domain.Login;
 using OPN.Domain.Tasks;
 using OPN.Services.Interfaces;
@@ -14,10 +15,12 @@ namespace OPN.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskDataHandler _handler;
-        public TaskService(ITaskDataHandler handler)
+        private readonly ITaskDataFetcher _fetcher;
+        private readonly IProductHandlingTaskDataCommiter _commiter;
+        public TaskService(ITaskDataFetcher fetcher, IProductHandlingTaskDataCommiter commiter)
         {
-            _handler = handler;
+            _fetcher = fetcher;
+            _commiter = commiter;
         }
         public Task CompleteTask(string UserIDN)
         {
@@ -29,7 +32,7 @@ namespace OPN.Services
         {
             //get a random unfinished product
 
-            var products = _handler.GetUnfinishedProducts();
+            var products = _fetcher.FetchProducts();
             //var tasks = await _handler.GetProductHandlingTasks(); 
             Random random = new Random();
             Product taskProduct = products[random.Next(0, products.Count)];
@@ -60,12 +63,13 @@ namespace OPN.Services
             var task = new OPNProductHandlingTask(
                                             request.LoggedUserIDN,
                                             taskProduct,
-                                            institutionWithProportion
+                                            institutionWithProportion,
+                                            _commiter
                                         );
 
             //register task on db
 
-                //await _handler.RegisterTask(task);
+            task.Register();
 
             //return task to the logged user
             return task;

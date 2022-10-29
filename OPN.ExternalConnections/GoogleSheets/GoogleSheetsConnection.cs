@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
 using Newtonsoft.Json;
 using OPN.Data.SpreadSheets.Interfaces;
 using OPN.ExternalConnections.GoogleSheets;
@@ -69,17 +70,11 @@ namespace OPN.ExternalConnections.GoogleSheets
 
 
             var request = _sheetsService.Spreadsheets.Values.Get(spreadsheetId,
-                SpreadsheetRangeHelper.GetRangeToGoogleSheetsRangeString(1, _baseRange.Item1, 1, _baseRange.Item2, page));
+                SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page));
 
             var response = request.Execute();
 
             List<string> columnsFromSpreadsheet = response.Values[0].Select(o => o.ToString()).ToList();
-            //List<int> columnsIndexes = new List<int>();
-            
-            //for(int i = 0; i < columnsFromSpreadsheet.Count; i++)
-            //{
-            //    if (columns.Contains(columnsFromSpreadsheet[i])) columnsIndexes.Add(i);
-            //}
 
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
             
@@ -105,6 +100,27 @@ namespace OPN.ExternalConnections.GoogleSheets
             }
 
             return result;
+
+        }
+
+        public void AppendRowToSpreadsheet(string spreadsheetId, string page, List<string> valuesToAppend)
+        {
+
+            List<object> list = new List<object>();
+
+            foreach(string value in valuesToAppend)
+            {
+                list.Add(value);
+            }
+
+            var range = SpreadsheetRangeHelper.GetAppendRequestRange(1, valuesToAppend.Count, page);
+            var valuerange = new ValueRange();
+
+
+            valuerange.Values = new List<IList<object>>() { list };
+            var appendRequest = _sheetsService.Spreadsheets.Values.Append(valuerange, spreadsheetId, range);
+            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            appendRequest.Execute();
 
         }
 

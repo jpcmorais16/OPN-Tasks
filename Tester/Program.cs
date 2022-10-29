@@ -1,13 +1,14 @@
 ﻿using OPN.Data.GoogleSheets;
+using OPN.Data.SpreadSheets;
 using OPN.ExternalConnections.GoogleSheets;
 using OPN.Services;
 using OPN.Services.Requests;
 
-var x = new TaskService(new SpreadsheetDataHandler(new GoogleSheetsConnection(@"C:\Users\Trilogo\Desktop\credentials\credentials.json", 99, 5)));
+var connection = new GoogleSheetsConnection(@"C:\Users\Trilogo\Desktop\credentials\credentials.json", 99, 5);
 
+var x = new TaskService(new SpreadsheetDataFetcher(connection),
+                                  new SpreadsheetDataCommiter(connection));
 
-
-var a = x.CreateRandomProductHandlingTask(new TaskRequest());
 
 
 while (true)

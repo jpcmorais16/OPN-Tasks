@@ -37,17 +37,17 @@ namespace OPN.Data.GoogleSheets
 
             var result = new List<Product>();
 
-            for(int i=0; i < columnsDic["Itens"].Count; i++)
+            for(int i=0; i < columnsDic["Itens"].Item2.Count; i++)
             {
                 var proportionsDic = new Dictionary<string, int>
                 {
-                    { "Lar", Convert.ToInt32(columnsDic["Lar"][i]) },
-                    { "Recanto", Convert.ToInt32(columnsDic["Recanto"][i]) }
+                    { "Lar", Convert.ToInt32(columnsDic["Lar"].Item2[i]) },
+                    { "Recanto", Convert.ToInt32(columnsDic["Recanto"].Item2[i]) }
                 };
 
                 
 
-                result.Add(new Product(i, columnsDic["Itens"][i], proportionsDic)); //id only for testing
+                result.Add(new Product(i, columnsDic["Itens"].Item2[i], proportionsDic)); //id only for testing
             }
 
             return result;
