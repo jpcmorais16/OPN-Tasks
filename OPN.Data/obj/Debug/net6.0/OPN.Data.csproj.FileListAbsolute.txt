@@ -1,0 +1,17 @@
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.csproj.AssemblyReference.cache
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.AssemblyInfoInputs.cache
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.AssemblyInfo.cs
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.csproj.CoreCompileInputs.cache
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Data.deps.json
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Data.dll
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Data.pdb
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Domain.dll
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Services.dll
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Services.pdb
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\bin\Debug\net6.0\OPN.Domain.pdb
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.csproj.CopyComplete
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.dll
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\refint\OPN.Data.dll
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\OPN.Data.pdb
+C:\Users\Trilogo\Desktop\OPN\OPN.Data\obj\Debug\net6.0\ref\OPN.Data.dll

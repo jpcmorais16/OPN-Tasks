@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "lV03yru6sGx5o0+y/xKtMkLC6HWn5ieq8XkjFgmVRQIbtX2oHLdPhh2A0gS8W4qQ2eJ+4387Uq19pMmF7ebe8A==",
+  "dgSpecHash": "fd88mj8HYR2gY8fWjQpc6sRIg2krgWoVuZOVb29MRy+6ypcd8zuNgB8rg+nxb0uO5C8XhwqMrUdyr8CusUoKnA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis\\1.57.0\\google.apis.1.57.0.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.auth\\1.57.0\\google.apis.auth.1.57.0.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.core\\1.57.0\\google.apis.core.1.57.0.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.sheets.v4\\1.57.0.2826\\google.apis.sheets.v4.1.57.0.2826.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

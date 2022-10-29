@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "QFh2XVw/1dC2IuKlLS11q7Sknr90vQNzFflFNqmSD+iU2hvTMfuRukBRFD20cF1uHiK183qi5zVWzpmJ8jeIUQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN\\Tester\\Tester.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis\\1.57.0\\google.apis.1.57.0.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.auth\\1.57.0\\google.apis.auth.1.57.0.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.core\\1.57.0\\google.apis.core.1.57.0.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.sheets.v4\\1.57.0.2826\\google.apis.sheets.v4.1.57.0.2826.nupkg.sha512",
+    "C:\\Users\\Trilogo\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

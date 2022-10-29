@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "OPN.Services/1.0.0": {
+        "dependencies": {
+          "OPN.Domain": "1.0.0"
+        },
+        "runtime": {
+          "OPN.Services.dll": {}
+        }
+      },
+      "OPN.Domain/1.0.0": {
+        "runtime": {
+          "OPN.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OPN.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OPN.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

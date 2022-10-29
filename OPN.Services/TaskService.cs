@@ -25,17 +25,37 @@ namespace OPN.Services
             throw new NotImplementedException();
         }
 
-        public async Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(TaskRequest request)
+        public OPNProductHandlingTask CreateRandomProductHandlingTask(TaskRequest request)
         {
-            //get a random unhandled product
+            //get a random unfinished product
 
-            var products = await _handler.GetRemainingProducts();
+            var products = _handler.GetUnfinishedProducts();
+            //var tasks = await _handler.GetProductHandlingTasks(); 
             Random random = new Random();
             Product taskProduct = products[random.Next(0, products.Count)];
 
             //create task
 
-            var institutionWithProportion = taskProduct.GetRandomInstitutionWithProportion();
+            //not optimal
+            var institutionWithProportion = taskProduct.GetRandomInstitutionWithProportion(s => true);
+                
+            //    instName => 
+
+            //        !(tasks.Any(
+
+            //                    t =>
+
+            //                    t.Product.Name.Equals(taskProduct.Name) 
+
+            //                                     &&
+
+            //                     t.InstitutionName.Equals(instName)
+                                 
+            //        )
+
+            //    )
+                     
+            //);
 
             var task = new OPNProductHandlingTask(
                                             request.LoggedUserIDN,
@@ -45,7 +65,7 @@ namespace OPN.Services
 
             //register task on db
 
-            await _handler.RegisterTask(task);
+                //await _handler.RegisterTask(task);
 
             //return task to the logged user
             return task;

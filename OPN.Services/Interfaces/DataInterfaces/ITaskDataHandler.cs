@@ -10,7 +10,8 @@ namespace OPN.Services.Interfaces.DataInterfaces
 {
     public interface ITaskDataHandler
     {
-        public Task<List<Product>> GetRemainingProducts();
+        public List<Product> GetUnfinishedProducts();
         public Task RegisterTask(OPNTask task);
+        public Task<List<OPNProductHandlingTask>> GetProductHandlingTasks();
     }
 }

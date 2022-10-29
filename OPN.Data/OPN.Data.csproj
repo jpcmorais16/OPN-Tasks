@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Sheets.v4" Version="1.57.0.2826" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OPN.Services\OPN.Services.csproj" />
+  </ItemGroup>
+
 </Project>
