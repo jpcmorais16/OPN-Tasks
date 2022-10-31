@@ -18,14 +18,42 @@ namespace OPN.Data.GoogleSheets
     {
         private ISpreadsheetConnection _connection;
         List<Product>? productsList;
-        public SpreadsheetDataFetcher(ISpreadsheetConnection connection)
+        private string _spreadsheetId;
+        public SpreadsheetDataFetcher(ISpreadsheetConnection connection, string spreadsheetId)
         {
             _connection = connection;
+            _spreadsheetId = spreadsheetId;
         }
 
-        public Task<List<OPNProductHandlingTask>> GetProductHandlingTasks()
+        public List<OPNProductHandlingTask> FetchProductHandlingTasks()
         {
-            throw new NotImplementedException();
+            var page = "Tasks";
+            var columns = new List<string> { "Id", "Produto", "Instituição", "Id do Produto" };
+
+            var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
+
+            var result = new List<OPNProductHandlingTask>();
+
+            if (columnsDic["Id"].Count == 0)
+                return result;
+
+            for(int i = 0; i < columnsDic.Count; i++)
+            {
+                var task = new OPNProductHandlingTask
+                {
+                    Id = Convert.ToInt32(columnsDic["Id"][i]),
+                    Product = new Product
+                    {
+                        Name = columnsDic["Produto"][i],
+                        Id = Convert.ToInt32(columnsDic["Id do Produto"][i])
+                    },
+                    InstitutionName = columnsDic["Instituição"][i]
+
+                };
+                result.Add(task);
+            }
+
+            return result;
         }
 
         public List<Product> FetchProducts()
@@ -33,11 +61,10 @@ namespace OPN.Data.GoogleSheets
             if (productsList != null)
                 return productsList;
 
-            string spreadsheetId = "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw";
             string page = "Proporções";
             var columns = new List<string> { "Itens", "Lar", "Recanto"};
 
-            var columnsDic = _connection.GetColumnsFromSpreadsheet(spreadsheetId, page, columns);
+            var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
 
             var result = new List<Product>();
 
@@ -51,7 +78,7 @@ namespace OPN.Data.GoogleSheets
 
                 
 
-                result.Add(new Product(i, columnsDic["Itens"][i], proportionsDic)); //id only for testing
+                result.Add(new Product(i, columnsDic["Itens"][i], proportionsDic));
             }
 
             return result;

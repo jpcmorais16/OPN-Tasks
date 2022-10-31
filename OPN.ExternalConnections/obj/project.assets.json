@@ -260,11 +260,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
+      "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
       "projectName": "OPN.ExternalConnections",
-      "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
+      "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
       "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\obj\\",
+      "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -281,8 +281,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj": {
-              "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj"
+            "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj": {
+              "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj"
             }
           }
         }

@@ -30,40 +30,39 @@ namespace OPN.Services
 
         public OPNProductHandlingTask CreateRandomProductHandlingTask(TaskRequest request)
         {
-            //get a random unfinished product
+            //get a random product
 
             var products = _fetcher.FetchProducts();
-            //var tasks = await _handler.GetProductHandlingTasks(); 
+            var tasks = _fetcher.FetchProductHandlingTasks();
+            var institutions = products.First().Institutions;//fazer o filtro
+            
+
+            
+            
+            //this method of filtering is not optimal and should be eventually replaced
+
+            var remainingProducts = products.Where(p => p.Institutions.Any(i =>
+            !(tasks.Any(t => t.Product.Name.Equals(p.Name) && t.InstitutionName.Equals(i))))).ToList();//O(n^3)
+
+            if (remainingProducts == null)
+                throw new Exception("Não há mais tasks");
+
             Random random = new Random();
-            Product taskProduct = products[random.Next(0, products.Count)];
 
-            //create task
+            Product taskProduct = products[random.Next(0, remainingProducts.Count)];
 
-            //not optimal
-            var institutionWithProportion = taskProduct.GetRandomInstitutionWithProportion(s => true);
-                
-            //    instName => 
+            var availableInstitutions = taskProduct.Institutions.Where(i =>
+            !(tasks.Any(t => t.Product.Name.Equals(taskProduct.Name) && t.InstitutionName.Equals(i)))).ToList();
 
-            //        !(tasks.Any(
+            var institutionName = availableInstitutions[random.Next(0, availableInstitutions.Count)];
 
-            //                    t =>
-
-            //                    t.Product.Name.Equals(taskProduct.Name) 
-
-            //                                     &&
-
-            //                     t.InstitutionName.Equals(instName)
-                                 
-            //        )
-
-            //    )
-                     
-            //);
+            var institutionProportion = taskProduct.GetInstitutionProportion(institutionName);
 
             var task = new OPNProductHandlingTask(
                                             request.LoggedUserIDN,
                                             taskProduct,
-                                            institutionWithProportion,
+                                            institutionName,
+                                            institutionProportion,
                                             _commiter
                                         );
 

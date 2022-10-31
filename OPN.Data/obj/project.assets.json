@@ -241,11 +241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj",
+      "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj",
       "projectName": "OPN.Data",
-      "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj",
+      "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj",
       "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\obj\\",
+      "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -262,8 +262,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj": {
-              "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj"
+            "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj": {
+              "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj"
             }
           }
         }

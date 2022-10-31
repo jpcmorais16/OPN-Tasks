@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iInLjT8JfwsFc+Ck6FJdnpvVqyIBitouhFGADxVHoQ1LhH+5Ax1TfF5lYUbKr0+zPWfaBYQL+P6GS/Cs8sW28Q==",
+  "dgSpecHash": "f1WzaXUVGcvOKL15Ns1ETIjd19ZNSx+vGNIPh1oJ5pWEBtxCDkUcM+uMKjM8Qzw/QqzHxURq7R8IlimPsQtSpQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -11,6 +11,6 @@ namespace OPN.Services.Interfaces.DataInterfaces
     public interface ITaskDataFetcher
     {
         public List<Product> FetchProducts();
-        public Task<List<OPNProductHandlingTask>> GetProductHandlingTasks();
+        public List<OPNProductHandlingTask> FetchProductHandlingTasks();
     }
 }

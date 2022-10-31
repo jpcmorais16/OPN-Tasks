@@ -88,8 +88,6 @@ namespace OPN.ExternalConnections.GoogleSheets
             {
                 List<string> data = new List<string>();
 
-                
-
                 for(int i = 0; i < row.Count; i++)
                 {
                     if (result.Keys.Contains(columnsFromSpreadsheet[i]))

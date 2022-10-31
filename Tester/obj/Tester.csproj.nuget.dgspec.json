@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\Tester\\Tester.csproj": {}
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\Tester\\Tester.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj": {
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj",
         "projectName": "OPN.Data",
-        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj",
+        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj",
         "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\obj\\",
+        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj": {
-                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj"
+              "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj": {
+                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj"
               }
             }
           }
@@ -68,14 +68,14 @@
         }
       }
     },
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj": {
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
         "projectName": "OPN.Domain",
-        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj",
+        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
         "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -122,14 +122,14 @@
         }
       }
     },
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj": {
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
+        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
         "projectName": "OPN.ExternalConnections",
-        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
+        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
         "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\obj\\",
+        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -146,8 +146,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj": {
-                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj"
+              "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj": {
+                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj"
               }
             }
           }
@@ -186,14 +186,14 @@
         }
       }
     },
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj": {
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj",
         "projectName": "OPN.Services",
-        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\OPN.Services.csproj",
+        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\OPN.Services.csproj",
         "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Services\\obj\\",
+        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -210,8 +210,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj": {
-                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj"
+              "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj": {
+                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj"
               }
             }
           }
@@ -244,14 +244,14 @@
         }
       }
     },
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\Tester\\Tester.csproj": {
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\Tester\\Tester.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\Tester\\Tester.csproj",
+        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\Tester\\Tester.csproj",
         "projectName": "Tester",
-        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\Tester\\Tester.csproj",
+        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\Tester\\Tester.csproj",
         "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\Tester\\obj\\",
+        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\Tester\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -268,11 +268,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj": {
-                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Data\\OPN.Data.csproj"
+              "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj": {
+                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Data\\OPN.Data.csproj"
               },
-              "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj": {
-                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj"
+              "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj": {
+                "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj"
               }
             }
           }

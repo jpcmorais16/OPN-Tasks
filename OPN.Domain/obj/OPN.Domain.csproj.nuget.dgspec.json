@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj": {}
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj": {
+    "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
         "projectName": "OPN.Domain",
-        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\OPN.Domain.csproj",
+        "projectPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
         "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config",

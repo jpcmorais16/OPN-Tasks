@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7OTrcunphRB8kzH6tmIqcfm0+dCSmf/dbiu1hD2aPI9Rnixk/A88/Ord0JRRgar4wyXm/JpjLU5N1HujipqilA==",
+  "dgSpecHash": "2mm2DhUH5QULWEQIMQtTKls2pGRKwuCDfMVuzkdZbAAnp4i8H/hJk/8/sevt9AY6SVjkEDg3zmdR1GnYdHuXNA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
+  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.ExternalConnections\\OPN.ExternalConnections.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis\\1.57.0\\google.apis.1.57.0.nupkg.sha512",
     "C:\\Users\\Trilogo\\.nuget\\packages\\google.apis.auth\\1.57.0\\google.apis.auth.1.57.0.nupkg.sha512",

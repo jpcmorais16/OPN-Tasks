@@ -10,3 +10,15 @@ C:\Users\Trilogo\Desktop\OPN\OPN.Domain\obj\Debug\net6.0\OPN.Domain.dll
 C:\Users\Trilogo\Desktop\OPN\OPN.Domain\obj\Debug\net6.0\refint\OPN.Domain.dll
 C:\Users\Trilogo\Desktop\OPN\OPN.Domain\obj\Debug\net6.0\OPN.Domain.pdb
 C:\Users\Trilogo\Desktop\OPN\OPN.Domain\obj\Debug\net6.0\ref\OPN.Domain.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\bin\Debug\net6.0\OPN.Domain.deps.json
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\bin\Debug\net6.0\OPN.Domain.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\bin\Debug\net6.0\OPN.Domain.pdb
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.csproj.AssemblyReference.cache
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.AssemblyInfoInputs.cache
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.AssemblyInfo.cs
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\refint\OPN.Domain.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\OPN.Domain.pdb
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Domain\obj\Debug\net6.0\ref\OPN.Domain.dll
