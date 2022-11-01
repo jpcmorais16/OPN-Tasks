@@ -37,7 +37,7 @@ namespace OPN.Data.GoogleSheets
             if (columnsDic["Id"].Count == 0)
                 return result;
 
-            for(int i = 0; i < columnsDic.Count; i++)
+            for(int i = 0; i < columnsDic["Id"].Count; i++)
             {
                 var task = new OPNProductHandlingTask
                 {

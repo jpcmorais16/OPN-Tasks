@@ -44,12 +44,12 @@ namespace OPN.Services
             var remainingProducts = products.Where(p => p.Institutions.Any(i =>
             !(tasks.Any(t => t.Product.Name.Equals(p.Name) && t.InstitutionName.Equals(i))))).ToList();//O(n^3)
 
-            if (remainingProducts == null)
+            if (remainingProducts.Count == 0)
                 throw new Exception("Não há mais tasks");
 
             Random random = new Random();
 
-            Product taskProduct = products[random.Next(0, remainingProducts.Count)];
+            Product taskProduct = remainingProducts[random.Next(0, remainingProducts.Count)];
 
             var availableInstitutions = taskProduct.Institutions.Where(i =>
             !(tasks.Any(t => t.Product.Name.Equals(taskProduct.Name) && t.InstitutionName.Equals(i)))).ToList();
