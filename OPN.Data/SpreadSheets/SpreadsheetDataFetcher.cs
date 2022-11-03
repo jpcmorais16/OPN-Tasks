@@ -4,6 +4,7 @@ using Google.Apis.Sheets.v4;
 using Newtonsoft.Json;
 using OPN.Data.SpreadSheets.Interfaces;
 using OPN.Domain;
+using OPN.Domain.Login;
 using OPN.Domain.Tasks;
 using OPN.Services.Interfaces.DataInterfaces;
 using System;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace OPN.Data.GoogleSheets
 {
-    public class SpreadsheetDataFetcher : ITaskDataFetcher
+    public class SpreadsheetDataFetcher : ITaskDataFetcher, IUserDataFetcher
     {
         private ISpreadsheetConnection _connection;
         List<Product>? productsList;
@@ -85,5 +86,37 @@ namespace OPN.Data.GoogleSheets
              
         }
 
+        public LoggedUser FetchUser(string idn)
+        {
+            string page = "Usuários";
+            var columns = new List<string> { "IDN", "Task", "Id da Task" };
+
+            var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
+
+            for(int i = 0; i < columnsDic["IDN"].Count; i++)
+            {
+                if (columnsDic["IDN"][i].Equals(idn))
+                {
+                    LoggedUser user = new LoggedUser
+                    {
+                        IDN = idn
+                    };
+                    try
+                    {
+                        user.TaskGoal = columnsDic["Task"][i] != null ? columnsDic["Task"][i] : "Usuário sem task ativa";
+                        user.TaskId = Convert.ToInt32(columnsDic["Id da Task"][i]);
+                    }
+                    catch
+                    {
+                        return user;
+                    }
+
+                    return user;                      
+                }
+            } 
+
+            return null;
+
+        }
     }
 }

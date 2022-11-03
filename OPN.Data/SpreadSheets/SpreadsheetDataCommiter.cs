@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace OPN.Data.SpreadSheets
 {
-    public class SpreadsheetDataCommiter : IProductHandlingTaskDataCommiter
+    public class SpreadsheetDataCommiter : IProductHandlingTaskDataCommiter, IUserDataCommiter
     {
         ISpreadsheetConnection _connection;
+        private readonly string _spreadsheetId = "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw";
         public SpreadsheetDataCommiter(ISpreadsheetConnection connection)
         {
             _connection = connection;
@@ -18,7 +19,7 @@ namespace OPN.Data.SpreadSheets
 
         public void Commit(string goal, int id, string userIDN, DateTime creationTime, string institutionName, string productName, int productId)
         {
-            string spreadsheetId = "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw";
+            
             string page = "Tasks";
 
             List<string> values = new List<string>
@@ -26,7 +27,16 @@ namespace OPN.Data.SpreadSheets
                 goal, productName, productId.ToString(), institutionName, creationTime.ToString(), id.ToString(), userIDN
             };
 
-            _connection.AppendRowToSpreadsheet(spreadsheetId, page, values);
+            _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
+        }
+
+        public void RegisterNewUser(string idn)
+        {
+            string page = "Usuários";
+
+            List<string> values = new List<string> { idn };
+
+            _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
         }
     }
 }
