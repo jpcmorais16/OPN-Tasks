@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OPN.Domain.Login;
 
 namespace OPN.Domain.Interfaces
 {
     public interface IUserDataCommiter
     {
-        void RegisterNewUser(string iDN);
+        LoggedUser RegisterNewUser(string iDN, string id);
+        public void AddTaskToUser(int userId, string taskGoal, int taskId);
+        void CompleteTaskFromUser(int userId, int? taskId);
     }
 }

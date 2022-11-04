@@ -15,17 +15,17 @@ namespace OPN.Domain.Tasks
         {
 
         }
-        public OPNProductHandlingTask(string userIDN, Product product, string institutionName, int institutionProportion, IProductHandlingTaskDataCommiter handler)
+        public OPNProductHandlingTask(int taskId, string userIDN, Product product, string institutionName, int institutionProportion, IProductHandlingTaskDataCommiter handler)
         {
+            Id = taskId;
             UserIDN = userIDN;
             Product = product;
             InstitutionName = institutionName;
             InstitutionProportion = institutionProportion;
             CreationTime = DateTime.Now;
-            Goal = $"Levar {InstitutionProportion} de {Product.Name} para {InstitutionName}";
+            Goal = $"Levar {InstitutionProportion * Product.Amount / 100} de {Product.Name} para {InstitutionName}";
             _commiter = handler;
         }
-        public int Id { get; set; }
         public Product Product { get; set; }
         public string InstitutionName { get; set; }
         public int InstitutionProportion { get; set; }

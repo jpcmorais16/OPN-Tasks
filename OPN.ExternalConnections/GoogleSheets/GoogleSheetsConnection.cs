@@ -98,7 +98,6 @@ namespace OPN.ExternalConnections.GoogleSheets
             }
 
             return result;
-
         }
 
         public void AppendRowToSpreadsheet(string spreadsheetId, string page, List<string> valuesToAppend)
@@ -122,8 +121,17 @@ namespace OPN.ExternalConnections.GoogleSheets
 
         }
 
+        public void UpdateSingleCell(string spreadsheetId, string page, int column, int row, string value)
+        {
+            List<object> list = new List<object> { value };
 
+            var valueRange = new ValueRange();
+            valueRange.Values = new List<IList<object>>() { list };
 
-
+            var range = SpreadsheetRangeHelper.GetColumnUpdateRequestRange(row, column, page);
+            var updateRequest = _sheetsService.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            updateRequest.Execute();
+        }
     }
 }

@@ -20,14 +20,16 @@ namespace OPN.Services
             _commiter = commiter;
         }
 
-        public void Login(string IDN)
+        public LoggedUser Login(string IDN)
         {
             var user = _fetcher.FetchUser(IDN);
 
             if(user == null)
             {
-                _commiter.RegisterNewUser(IDN);
+                var id = _fetcher.FetchNumberOfUsers() + 1; 
+                user = _commiter.RegisterNewUser(IDN, id.ToString());
             }
+            return user;
         }
 
     }

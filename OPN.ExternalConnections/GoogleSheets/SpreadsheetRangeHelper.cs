@@ -24,5 +24,12 @@ namespace OPN.ExternalConnections.GoogleSheets
 
             return page + "!" + charFirstColumn.ToString() + ":" + charLastColumn.ToString();
         }
+
+        public static string GetColumnUpdateRequestRange(int row, int column, string page)
+        {
+            char charColumn = (char)(column + 'A' - 1);
+
+            return page + "!" + charColumn + row.ToString() + ":" + charColumn.ToString() + row.ToString();
+        }
     }
 }

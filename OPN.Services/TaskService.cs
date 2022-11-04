@@ -15,28 +15,32 @@ namespace OPN.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskDataFetcher _fetcher;
-        private readonly IProductHandlingTaskDataCommiter _commiter;
-        public TaskService(ITaskDataFetcher fetcher, IProductHandlingTaskDataCommiter commiter)
+        private readonly ITaskDataFetcher _taskFetcher;
+        private readonly IProductHandlingTaskDataCommiter _taskCommiter;
+        private readonly IUserDataFetcher _userDataFetcher;
+        private readonly IUserDataCommiter _userDataCommiter;
+        public TaskService(ITaskDataFetcher taskFetcher, IProductHandlingTaskDataCommiter taskCommiter, IUserDataFetcher userDataFetcher, IUserDataCommiter userDataCommiter)
         {
-            _fetcher = fetcher;
-            _commiter = commiter;
+            _taskFetcher = taskFetcher;
+            _taskCommiter = taskCommiter;
+            _userDataFetcher = userDataFetcher;
+            _userDataCommiter = userDataCommiter;
         }
-        public Task CompleteTask(string UserIDN)
+        public void CompleteTask(string UserIDN)
         {
-            //register on db that task is completed
-            throw new NotImplementedException();
+            var user = _userDataFetcher.FetchUser(UserIDN);
+            user.CompleteTask();
         }
 
         public OPNProductHandlingTask CreateRandomProductHandlingTask(TaskRequest request)
         {
             //get a random product
 
-            var products = _fetcher.FetchProducts();
-            var tasks = _fetcher.FetchProductHandlingTasks();
+            var products = _taskFetcher.FetchProducts();
+            var tasks = _taskFetcher.FetchProductHandlingTasks();
+            var user = _userDataFetcher.FetchUser(request.LoggedUserIDN);
+            user._userDataCommiter = _userDataCommiter;
             var institutions = products.First().Institutions;//fazer o filtro
-            
-
             
             
             //this method of filtering is not optimal and should be eventually replaced
@@ -58,12 +62,12 @@ namespace OPN.Services
 
             var institutionProportion = taskProduct.GetInstitutionProportion(institutionName);
 
-            var task = new OPNProductHandlingTask(
+            var task = new OPNProductHandlingTask(tasks.Count + 1,
                                             request.LoggedUserIDN,
                                             taskProduct,
                                             institutionName,
                                             institutionProportion,
-                                            _commiter
+                                            _taskCommiter
                                         );
 
             //register task on db
@@ -71,6 +75,9 @@ namespace OPN.Services
             task.Register();
 
             //return task to the logged user
+            user.AddTask(task);
+
+
             return task;
         }
 

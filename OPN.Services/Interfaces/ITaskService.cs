@@ -16,6 +16,7 @@ namespace OPN.Services.Interfaces
         public Task<List<OPNProductHandlingTask>> GetAllCompletedTasks();
         public Task<int> GetLoggedUserNumberOfCompletedTasks();
         public Task<int> GetNumberOfCompletedTasks();
+        public void CompleteTask(string userIDN);
 
     }
 }

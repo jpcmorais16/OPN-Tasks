@@ -1,5 +1,6 @@
 ﻿using OPN.Data.SpreadSheets.Interfaces;
 using OPN.Domain.Interfaces;
+using OPN.Domain.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,11 @@ namespace OPN.Data.SpreadSheets
     public class SpreadsheetDataCommiter : IProductHandlingTaskDataCommiter, IUserDataCommiter
     {
         ISpreadsheetConnection _connection;
-        private readonly string _spreadsheetId = "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw";
-        public SpreadsheetDataCommiter(ISpreadsheetConnection connection)
+        private readonly string _spreadsheetId;
+        public SpreadsheetDataCommiter(ISpreadsheetConnection connection, string spreadsheetId)
         {
             _connection = connection;
+            _spreadsheetId = spreadsheetId;
         }
 
         public void Commit(string goal, int id, string userIDN, DateTime creationTime, string institutionName, string productName, int productId)
@@ -30,13 +32,37 @@ namespace OPN.Data.SpreadSheets
             _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
         }
 
-        public void RegisterNewUser(string idn)
+        public LoggedUser RegisterNewUser(string idn, string id)
         {
             string page = "Usuários";
 
-            List<string> values = new List<string> { idn };
+            List<string> values = new List<string> { idn, id };
 
             _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
+
+            return new LoggedUser
+            {
+                ID = Convert.ToInt32(id),
+                IDN = idn
+            };
         }
+
+        public void AddTaskToUser(int userId, string taskGoal, int taskId)
+        {
+            var page = "Usuários";
+            _connection.UpdateSingleCell(_spreadsheetId,  page, 3, Convert.ToInt32(userId) + 1, taskGoal);
+            _connection.UpdateSingleCell(_spreadsheetId, page, 4, Convert.ToInt32(userId) + 1, taskId.ToString());
+        }
+
+        public void CompleteTaskFromUser(int userId, int? taskId)
+        {
+            string page1 = "Usuários";
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 4, Convert.ToInt32(userId) + 1, "");
+
+            string page2 = "Tasks";
+            _connection.UpdateSingleCell(_spreadsheetId, page2, 8, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
+        }
+
     }
 }
