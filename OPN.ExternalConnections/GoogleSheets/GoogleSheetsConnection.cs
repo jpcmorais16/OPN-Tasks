@@ -15,14 +15,14 @@ namespace OPN.ExternalConnections.GoogleSheets
 {
     public class GoogleSheetsConnection: ISpreadsheetConnection
     {
-        private SheetsService _sheetsService;
+        private SheetsService _sheetsService1;
+        private SheetsService _sheetsService2;
         private Tuple<int, int> _baseRange;
 
         public GoogleSheetsConnection(string credPath)
         {
             var path = File.ReadAllText(credPath);
             GoogleSheetsServiceAccountCredentials credentials = JsonConvert.DeserializeObject<GoogleSheetsServiceAccountCredentials>(path);
-
 
             var xCred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials.client_email)
             {
@@ -31,14 +31,14 @@ namespace OPN.ExternalConnections.GoogleSheets
             }
             }.FromPrivateKey(credentials.private_key));
 
-            _sheetsService = new SheetsService(
+            _sheetsService1 = new SheetsService(
                 new BaseClientService.Initializer()
                 {
                     HttpClientInitializer = xCred,
                 }
             );
 
-            _baseRange = new Tuple<int, int>(200, 6);
+            _baseRange = new Tuple<int, int>(200, 15);
         }
 
         public GoogleSheetsConnection(string credPath, int baseNumberOfRows, int baseNumberOfColumns)
@@ -54,7 +54,7 @@ namespace OPN.ExternalConnections.GoogleSheets
             }
             }.FromPrivateKey(credentials.private_key));
 
-            _sheetsService = new SheetsService(
+            _sheetsService1 = new SheetsService(
                 new BaseClientService.Initializer()
                 {
                     HttpClientInitializer = xCred,
@@ -68,11 +68,7 @@ namespace OPN.ExternalConnections.GoogleSheets
         public Dictionary<string, List<string>> GetColumnsFromSpreadsheet(string spreadsheetId, string page, List<string> columns)
         {
 
-
-            var request = _sheetsService.Spreadsheets.Values.Get(spreadsheetId,
-                SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page));
-
-            var response = request.Execute();
+            var response = MakeGetRequest(spreadsheetId, page);
 
             List<string> columnsFromSpreadsheet = response.Values[0].Select(o => o.ToString()).ToList();
 
@@ -112,12 +108,10 @@ namespace OPN.ExternalConnections.GoogleSheets
 
             var range = SpreadsheetRangeHelper.GetAppendRequestRange(1, valuesToAppend.Count, page);
             var valuerange = new ValueRange();
-
-
             valuerange.Values = new List<IList<object>>() { list };
-            var appendRequest = _sheetsService.Spreadsheets.Values.Append(valuerange, spreadsheetId, range);
-            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-            appendRequest.Execute();
+
+
+            MakeAppendRequest(spreadsheetId, valuerange, range);
 
         }
 
@@ -129,9 +123,62 @@ namespace OPN.ExternalConnections.GoogleSheets
             valueRange.Values = new List<IList<object>>() { list };
 
             var range = SpreadsheetRangeHelper.GetColumnUpdateRequestRange(row, column, page);
-            var updateRequest = _sheetsService.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            MakeUpdateRequest(spreadsheetId, valueRange, range);
+        }
+
+        private ValueRange MakeGetRequest(string spreadsheetId, string page)
+        {
+            var request = _sheetsService1.Spreadsheets.Values.Get(spreadsheetId,
+                SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page));
+
+            ValueRange? response;
+
+            try
+            {
+                response = request.Execute();
+            }
+
+            catch
+            {
+                Thread.Sleep(60000);
+                response = request.Execute();
+            }
+
+            return response;
+        }
+
+        private void MakeAppendRequest(string spreadsheetId, ValueRange valuerange, string range)
+        {
+            var appendRequest = _sheetsService1.Spreadsheets.Values.Append(valuerange, spreadsheetId, range);
+            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+
+            try
+            {      
+                 appendRequest.Execute();
+            }
+            catch
+            {
+                Thread.Sleep(60000);
+                appendRequest.Execute();
+
+            }
+        }
+
+        private void MakeUpdateRequest(string spreadsheetId, ValueRange valuerange, string range)
+        {
+            var updateRequest = _sheetsService1.Spreadsheets.Values.Update(valuerange, spreadsheetId, range);
             updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
-            updateRequest.Execute();
+
+            try
+            {
+                updateRequest.Execute();
+            }
+            catch
+            {
+                Thread.Sleep(60000);
+                updateRequest.Execute();
+            }
+            
         }
     }
 }

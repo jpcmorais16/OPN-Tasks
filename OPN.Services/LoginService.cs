@@ -2,6 +2,7 @@
 using OPN.Domain.Login;
 using OPN.Services.Interfaces;
 using OPN.Services.Interfaces.DataInterfaces;
+using OPN.Services.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,14 @@ namespace OPN.Services
             _commiter = commiter;
         }
 
-        public LoggedUser Login(string IDN)
+        public LoggedUser Login(LoginRequest request)
         {
-            var user = _fetcher.FetchUser(IDN);
+            var user = _fetcher.FetchUser(request.IDN);
 
             if(user == null)
             {
                 var id = _fetcher.FetchNumberOfUsers() + 1; 
-                user = _commiter.RegisterNewUser(IDN, id.ToString());
+                user = _commiter.RegisterNewUser(request.IDN, id.ToString());
             }
             return user;
         }

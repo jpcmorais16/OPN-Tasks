@@ -92,24 +92,32 @@ namespace OPN.Services
             return task;
         }
 
-        public Task<List<OPNProductHandlingTask>> GetAllCompletedTasks()
+        public List<OPNProductHandlingTask> GetAllCompletedTasks()
         {
-            throw new NotImplementedException();
+            var tasks = _taskFetcher.FetchProductHandlingTasks();
+
+            return tasks.Where(t => t.ConclusionTime != null).ToList();
         }
 
-        public Task<List<OPNProductHandlingTask>> GetLoggedUserCompletedTasks()
+        public List<OPNProductHandlingTask> GetUserCompletedTasks(string userIDN)
         {
-            throw new NotImplementedException();
+            var tasks = _taskFetcher.FetchProductHandlingTasks();
+
+            return tasks.Where(t => t.ConclusionTime != null && t.UserIDN.Equals(userIDN)).ToList();
         }
 
-        public Task<int> GetLoggedUserNumberOfCompletedTasks()
+        public int GetUserNumberOfCompletedTasks(string userIDN)
         {
-            throw new NotImplementedException();
+            var tasks = _taskFetcher.FetchProductHandlingTasks();
+
+            return tasks.Where(t => t.ConclusionTime != null && t.UserIDN.Equals(userIDN)).ToList().Count;
         }
 
-        public Task<int> GetNumberOfCompletedTasks()
+        public int GetNumberOfCompletedTasks()
         {
-            throw new NotImplementedException();
+            var tasks = _taskFetcher.FetchProductHandlingTasks();
+
+            return tasks.Where(t => t.ConclusionTime != null).ToList().Count;
         }
     }
 }

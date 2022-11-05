@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OPN.Services.Interfaces;
+using OPN.Services.Requests;
 
 namespace OPN.Api.Controllers
 {
@@ -14,9 +15,9 @@ namespace OPN.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] string IDN)
+        public IActionResult Login([FromBody] LoginRequest request)
         {
-            var user = _loginService.Login(IDN);
+            var user = _loginService.Login(request);
             return Ok(user);
         }
     }

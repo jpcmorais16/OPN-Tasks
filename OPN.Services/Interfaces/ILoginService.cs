@@ -1,4 +1,5 @@
 ﻿using OPN.Domain.Login;
+using OPN.Services.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace OPN.Services.Interfaces
 {
     public interface ILoginService
     {
-        public LoggedUser Login(string IDN);
+        public LoggedUser Login(LoginRequest request);
     }
 }

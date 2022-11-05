@@ -28,5 +28,27 @@ namespace OPN.Api.Controllers
             _taskService.CompleteTask(IDN);
             return Ok();
         }
+
+        [HttpGet("GetUserCompletedTasks")]
+        public IActionResult GetUserCompletedTasks([FromQuery] string IDN)
+        {
+            var result = _taskService.GetUserCompletedTasks(IDN);
+            return Ok(result);
+        }
+
+        [HttpGet("NumberOfCompletedTasksByUser")]
+        public IActionResult GetUserNumberOfCompletedTasks([FromQuery] string IDN)
+        {
+            var result = _taskService.GetUserNumberOfCompletedTasks(IDN);
+            return Ok(result);
+        }
+
+        [HttpGet("GetAllCompletedTasks")]
+        public IActionResult GetAllCompletedTasks()
+        {
+            var result = _taskService.GetAllCompletedTasks();
+
+            return Ok(result);
+        }
     }
 }
