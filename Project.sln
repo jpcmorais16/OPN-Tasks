@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPN.ExternalConnections", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tester", "Tester\Tester.csproj", "{3D2B4429-4633-477A-B8F4-742F801EE636}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPN.Api", "OPN.Api\OPN.Api.csproj", "{7172FCA8-2F77-4A51-86B1-E94C87497EBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{3D2B4429-4633-477A-B8F4-742F801EE636}.Release|x64.Build.0 = Release|Any CPU
 		{3D2B4429-4633-477A-B8F4-742F801EE636}.Release|x86.ActiveCfg = Release|Any CPU
 		{3D2B4429-4633-477A-B8F4-742F801EE636}.Release|x86.Build.0 = Release|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Debug|x64.Build.0 = Debug|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Debug|x86.Build.0 = Debug|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Release|x64.ActiveCfg = Release|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Release|x64.Build.0 = Release|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Release|x86.ActiveCfg = Release|Any CPU
+		{7172FCA8-2F77-4A51-86B1-E94C87497EBF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

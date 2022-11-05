@@ -16,17 +16,16 @@ using System.Threading.Tasks;
 
 namespace OPN.Data.GoogleSheets
 {
-    public class SpreadsheetDataFetcher : ITaskDataFetcher, IUserDataFetcher
+    public class SpreadsheetDataFetcher : IProductHandlingTaskDataFetcher, IUserDataFetcher
     {
         private ISpreadsheetConnection _connection;
         List<Product>? productsList;
-        private string _spreadsheetId;
+        private string _spreadsheetId = "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw";
         private List<LoggedUser> _users = new List<LoggedUser>();
 
-        public SpreadsheetDataFetcher(ISpreadsheetConnection connection, string spreadsheetId)
+        public SpreadsheetDataFetcher(ISpreadsheetConnection connection)
         {
             _connection = connection;
-            _spreadsheetId = spreadsheetId;
         }
 
         public int FetchNumberOfUsers()
@@ -119,7 +118,7 @@ namespace OPN.Data.GoogleSheets
                     {
                         IDN = idn,
                         ID = (i + 1),
-                        _userDataCommiter = new SpreadsheetDataCommiter(_connection, _spreadsheetId)
+                        _userDataCommiter = new SpreadsheetDataCommiter(_connection)
                     };
                     try
                     {

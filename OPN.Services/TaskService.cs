@@ -15,11 +15,11 @@ namespace OPN.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskDataFetcher _taskFetcher;
+        private readonly IProductHandlingTaskDataFetcher _taskFetcher;
         private readonly IProductHandlingTaskDataCommiter _taskCommiter;
         private readonly IUserDataFetcher _userDataFetcher;
         private readonly IUserDataCommiter _userDataCommiter;
-        public TaskService(ITaskDataFetcher taskFetcher, IProductHandlingTaskDataCommiter taskCommiter, IUserDataFetcher userDataFetcher, IUserDataCommiter userDataCommiter)
+        public TaskService(IProductHandlingTaskDataFetcher taskFetcher, IProductHandlingTaskDataCommiter taskCommiter, IUserDataFetcher userDataFetcher, IUserDataCommiter userDataCommiter)
         {
             _taskFetcher = taskFetcher;
             _taskCommiter = taskCommiter;

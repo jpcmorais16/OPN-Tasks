@@ -8,12 +8,12 @@ using OPN.Services.Requests;
 
 var connection = new GoogleSheetsConnection(@"C:\Users\Trilogo\Desktop\credentials\credentials.json", 200, 6);
 
-var fetcher = new SpreadsheetDataFetcher(connection, "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw");
+var fetcher = new SpreadsheetDataFetcher(connection);
 
 var x = new TaskService(fetcher,
-                                  new SpreadsheetDataCommiter(connection, "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"), new SpreadsheetDataFetcher(connection, "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"), new SpreadsheetDataCommiter(connection, "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"));
+                                  new SpreadsheetDataCommiter(connection), new SpreadsheetDataFetcher(connection), new SpreadsheetDataCommiter(connection));
 var y = new LoginService(fetcher,
-                                  new SpreadsheetDataCommiter(connection, "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"));
+                                  new SpreadsheetDataCommiter(connection));
 
 
 

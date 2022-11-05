@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OPN.Services.Interfaces.DataInterfaces
 {
-    public interface ITaskDataFetcher
+    public interface IProductHandlingTaskDataFetcher
     {
         public List<Product> FetchProducts();
         public List<OPNProductHandlingTask> FetchProductHandlingTasks();
