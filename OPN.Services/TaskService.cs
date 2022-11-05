@@ -29,6 +29,10 @@ namespace OPN.Services
         public void CompleteTask(string UserIDN)
         {
             var user = _userDataFetcher.FetchUser(UserIDN);
+
+            if (user == null)
+                throw new Exception("Esse IDN não fez login!");
+
             user.CompleteTask();
         }
 
@@ -39,6 +43,13 @@ namespace OPN.Services
             var products = _taskFetcher.FetchProducts();
             var tasks = _taskFetcher.FetchProductHandlingTasks();
             var user = _userDataFetcher.FetchUser(request.LoggedUserIDN);
+
+            if (user == null)
+                throw new Exception("Este IDN não fez login!");
+
+            if (user.TaskGoal != null)
+                throw new Exception("Este IDN já possui uma task ativa!");
+
             user._userDataCommiter = _userDataCommiter;
             var institutions = products.First().Institutions;//fazer o filtro
             

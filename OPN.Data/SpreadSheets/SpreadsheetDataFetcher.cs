@@ -123,7 +123,7 @@ namespace OPN.Data.GoogleSheets
                     };
                     try
                     {
-                        user.TaskGoal = columnsDic["Task"][i] != null ? columnsDic["Task"][i] : "Usuário sem task ativa";
+                        user.TaskGoal = columnsDic["Task"][i];
                         user.TaskId = Convert.ToInt32(columnsDic["Id da Task"][i]);
                     }
                     catch

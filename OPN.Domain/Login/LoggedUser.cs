@@ -31,7 +31,13 @@ namespace OPN.Domain.Login
 
         public void CompleteTask()
         {
+            if (TaskGoal == null)
+                throw new Exception("Este IDN não possui uma task ativa!");
+
             _userDataCommiter.CompleteTaskFromUser(ID, TaskId);
+
+            TaskId = null;
+            TaskGoal = null;
         }
     }
 }
