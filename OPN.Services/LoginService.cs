@@ -1,5 +1,6 @@
 ﻿using OPN.Domain.Interfaces;
 using OPN.Domain.Login;
+using OPN.Services.Interfaces;
 using OPN.Services.Interfaces.DataInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OPN.Services
 {
-    public class LoginService
+    public class LoginService: ILoginService
     {
         private readonly IUserDataFetcher _fetcher;
         private readonly IUserDataCommiter _commiter;

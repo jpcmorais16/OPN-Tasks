@@ -22,6 +22,7 @@ builder.Services.AddSingleton<IProductHandlingTaskDataCommiter, SpreadsheetDataC
 builder.Services.AddSingleton<IUserDataFetcher, SpreadsheetDataFetcher>();
 builder.Services.AddSingleton<IUserDataCommiter, SpreadsheetDataCommiter>();
 builder.Services.AddSingleton<ITaskService, TaskService>();
+builder.Services.AddSingleton<ILoginService, LoginService>();
 
 
 
