@@ -17,11 +17,10 @@ namespace OPN.ExternalConnections.GoogleSheets
     {
         private SheetsService _sheetsService;
         private Tuple<int, int> _baseRange;
-        private string _credPath = @"C:\Users\Trilogo\Desktop\credentials\credentials.json";
 
-        public GoogleSheetsConnection()
+        public GoogleSheetsConnection(string credPath)
         {
-            var path = File.ReadAllText(_credPath);
+            var path = File.ReadAllText(credPath);
             GoogleSheetsServiceAccountCredentials credentials = JsonConvert.DeserializeObject<GoogleSheetsServiceAccountCredentials>(path);
 
 

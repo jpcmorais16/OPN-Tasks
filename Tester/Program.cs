@@ -6,14 +6,14 @@ using OPN.Services;
 using OPN.Services.Interfaces.DataInterfaces;
 using OPN.Services.Requests;
 
-var connection = new GoogleSheetsConnection(@"C:\Users\Trilogo\Desktop\credentials\credentials.json", 200, 6);
+//var connection = new GoogleSheetsConnection(@"C:\Users\Trilogo\Desktop\credentials\credentials.json", 200, 6);
 
-var fetcher = new SpreadsheetDataFetcher(connection);
+//var fetcher = new SpreadsheetDataFetcher(connection);
 
-var x = new TaskService(fetcher,
-                                  new SpreadsheetDataCommiter(connection), new SpreadsheetDataFetcher(connection), new SpreadsheetDataCommiter(connection));
-var y = new LoginService(fetcher,
-                                  new SpreadsheetDataCommiter(connection));
+//var x = new TaskService(fetcher,
+//                                  new SpreadsheetDataCommiter(connection), new SpreadsheetDataFetcher(connection), new SpreadsheetDataCommiter(connection));
+//var y = new LoginService(fetcher,
+//                                  new SpreadsheetDataCommiter(connection));
 
 
 
@@ -21,14 +21,14 @@ var y = new LoginService(fetcher,
 
 
 
-while (true)
-{
-    //Console.WriteLine(x.CreateRandomProductHandlingTask(new TaskRequest()).Goal);
-    string idn = new Random().Next(0, 2000).ToString();
-    var user = y.Login(idn);
-    x.CreateRandomProductHandlingTask(new TaskRequest { LoggedUserIDN = idn});
-    user = fetcher.FetchUser(idn);
-    user.CompleteTask();
+//while (true)
+//{
+//    //Console.WriteLine(x.CreateRandomProductHandlingTask(new TaskRequest()).Goal);
+//    string idn = new Random().Next(0, 2000).ToString();
+//    var user = y.Login(idn);
+//    x.CreateRandomProductHandlingTask(new TaskRequest { LoggedUserIDN = idn});
+//    user = fetcher.FetchUser(idn);
+//    user.CompleteTask();
 
-    Thread.Sleep(2000);
-}
+//    Thread.Sleep(2000);
+//}

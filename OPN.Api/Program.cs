@@ -1,3 +1,4 @@
+using OPN.Api.Factories;
 using OPN.Data.GoogleSheets;
 using OPN.Data.SpreadSheets;
 using OPN.Data.SpreadSheets.Interfaces;
@@ -16,11 +17,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ISpreadsheetConnection, GoogleSheetsConnection>();
-builder.Services.AddSingleton<IProductHandlingTaskDataFetcher, SpreadsheetDataFetcher>();
-builder.Services.AddSingleton<IProductHandlingTaskDataCommiter, SpreadsheetDataCommiter>();
-builder.Services.AddSingleton<IUserDataFetcher, SpreadsheetDataFetcher>();
-builder.Services.AddSingleton<IUserDataCommiter, SpreadsheetDataCommiter>();
+//builder.Services.AddSingleton<ISpreadsheetConnection, GoogleSheetsConnection>();
+builder.Services.AddSingleton<IProductHandlingTaskDataFetcher, SpreadsheetDataFetcher>(_ => FetcherFactory.GetSpreadsheetDataFetcher());
+builder.Services.AddSingleton<IProductHandlingTaskDataCommiter, SpreadsheetDataCommiter>(_ => CommiterFactory.GetSpreadsheetCommiter());
+builder.Services.AddSingleton<IUserDataFetcher, SpreadsheetDataFetcher>(_ => FetcherFactory.GetSpreadsheetDataFetcher());
+builder.Services.AddSingleton<IUserDataCommiter, SpreadsheetDataCommiter>(_ => CommiterFactory.GetSpreadsheetCommiter());
 builder.Services.AddSingleton<ITaskService, TaskService>();
 builder.Services.AddSingleton<ILoginService, LoginService>();
 

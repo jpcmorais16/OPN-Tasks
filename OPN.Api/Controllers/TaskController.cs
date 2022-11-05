@@ -23,7 +23,7 @@ namespace OPN.Api.Controllers
         }
 
         [HttpPost("CompleteTask")]
-        public IActionResult CompleteTask([FromBody] string IDN)
+        public IActionResult CompleteTask([FromQuery] string IDN)
         {
             _taskService.CompleteTask(IDN);
             return Ok();
