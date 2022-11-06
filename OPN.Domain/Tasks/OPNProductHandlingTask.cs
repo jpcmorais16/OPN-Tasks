@@ -37,5 +37,10 @@ namespace OPN.Domain.Tasks
 
             _commiter.Commit(Goal, Id, UserIDN, CreationTime, InstitutionName, Product.Name, Product.Id);
         }
+
+        public void UpdateIDN(string loggedUserIDN)
+        {
+            _commiter.UpdateIDN(Id, loggedUserIDN);
+        }
     }
 }

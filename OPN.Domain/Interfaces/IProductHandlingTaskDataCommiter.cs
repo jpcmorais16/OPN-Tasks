@@ -9,5 +9,6 @@ namespace OPN.Domain.Interfaces
     public interface IProductHandlingTaskDataCommiter
     {
         void Commit(string goal, int id, string userIDN, DateTime creationTime, string institutionName, string productName, int productId);
+        void UpdateIDN(int id, string loggedUserIDN);
     }
 }

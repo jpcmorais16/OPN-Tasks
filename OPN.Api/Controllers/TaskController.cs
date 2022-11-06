@@ -50,5 +50,12 @@ namespace OPN.Api.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("CancelTask")]
+        public IActionResult CancelTask([FromQuery]string IDN)
+        {
+            _taskService.CancelTask(IDN);
+            return Ok();
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace OPN.Data.GoogleSheets
         public List<OPNProductHandlingTask> FetchProductHandlingTasks()
         {
             var page = "Tasks";
-            var columns = new List<string> { "Id", "Produto", "Instituição", "Id do Produto", "Momento de Conclusão", "IDN do Responsável" };
+            var columns = new List<string> { "Task", "Id", "Produto", "Instituição", "Id do Produto", "Momento de Conclusão", "IDN do Responsável" };
 
             var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
 
@@ -77,7 +77,8 @@ namespace OPN.Data.GoogleSheets
                     },
                     InstitutionName = columnsDic["Instituição"][i],
                     ConclusionTime = conclusionTime,
-                    UserIDN = columnsDic["IDN do Responsável"][i]
+                    UserIDN = columnsDic["IDN do Responsável"][i],
+                    Goal = columnsDic["Task"][i]
 
                 };
                 result.Add(task);

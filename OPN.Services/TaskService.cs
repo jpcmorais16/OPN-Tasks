@@ -50,6 +50,17 @@ namespace OPN.Services
             if (user.TaskGoal != null)
                 throw new Exception("Este IDN já possui uma task ativa!");
 
+            var cancelledTask = tasks.FirstOrDefault(t => t.UserIDN.Length == 0);
+
+            if(cancelledTask != null)
+            {
+                cancelledTask._commiter = _taskCommiter;
+                cancelledTask.UpdateIDN(request.LoggedUserIDN);
+                user.AddTask(cancelledTask);
+
+                return cancelledTask;
+            }
+
             user._userDataCommiter = _userDataCommiter;
             var institutions = products.First().Institutions;//fazer o filtro
             
@@ -90,6 +101,16 @@ namespace OPN.Services
 
 
             return task;
+        }
+
+        public void CancelTask(string IDN)
+        {
+            var user = _userDataFetcher.FetchUser(IDN);
+
+            if(user == null)
+                throw new Exception("Este IDN não fez login!");
+
+            user.CancelTask();
         }
 
         public List<OPNProductHandlingTask> GetAllCompletedTasks()

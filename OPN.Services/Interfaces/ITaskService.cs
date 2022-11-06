@@ -17,6 +17,6 @@ namespace OPN.Services.Interfaces
         public int GetUserNumberOfCompletedTasks(string userIDN);
         public int GetNumberOfCompletedTasks();
         public void CompleteTask(string userIDN);
-
+        void CancelTask(string iDN);
     }
 }

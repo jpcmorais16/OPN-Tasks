@@ -64,5 +64,20 @@ namespace OPN.Data.SpreadSheets
             _connection.UpdateSingleCell(_spreadsheetId, page2, 8, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
         }
 
+        public void CancelTaskFromUser(int userId, int? taskId)
+        {
+            string page1 = "Usuários";
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
+
+            string page2 = "Tasks";
+            _connection.UpdateSingleCell(_spreadsheetId, page2,7, Convert.ToInt32(taskId) + 1, "");
+        }
+
+        public void UpdateIDN(int taskId, string loggedUserIDN)
+        {
+            string page = "Tasks";
+            _connection.UpdateSingleCell(_spreadsheetId, page, 7, Convert.ToInt32(taskId) + 1, loggedUserIDN);
+        }
     }
 }
