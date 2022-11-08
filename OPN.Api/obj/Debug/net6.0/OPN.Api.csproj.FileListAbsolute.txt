@@ -39,3 +39,8 @@ C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\OPN.Data.dll
 C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\OPN.Data.pdb
 C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\OPN.ExternalConnections.dll
 C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\OPN.ExternalConnections.pdb
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\appsettings.Production.json
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll

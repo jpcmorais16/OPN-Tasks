@@ -2,6 +2,7 @@
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OPN.Data.SpreadSheets.Interfaces;
 using OPN.ExternalConnections.GoogleSheets;
@@ -19,10 +20,9 @@ namespace OPN.ExternalConnections.GoogleSheets
         private SheetsService _sheetsService2;
         private Tuple<int, int> _baseRange;
 
-        public GoogleSheetsConnection(string credPath)
-        {
-            var path = File.ReadAllText(credPath);
-            GoogleSheetsServiceAccountCredentials credentials = JsonConvert.DeserializeObject<GoogleSheetsServiceAccountCredentials>(path);
+        public GoogleSheetsConnection(IConfiguration configuration)
+        {        
+            GoogleSheetsServiceAccountCredentials credentials = configuration.GetSection("Google").Get<GoogleSheetsServiceAccountCredentials>();
 
             var xCred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials.client_email)
             {
