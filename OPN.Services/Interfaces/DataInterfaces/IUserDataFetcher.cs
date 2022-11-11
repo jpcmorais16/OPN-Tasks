@@ -6,5 +6,6 @@ namespace OPN.Services.Interfaces.DataInterfaces
     {
         LoggedUser FetchUser(string iDN);
         public int FetchNumberOfUsers();
+        List<LoggedUser> FetchUsers();
     }
 }

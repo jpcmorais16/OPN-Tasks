@@ -154,5 +154,41 @@ namespace OPN.Data.GoogleSheets
             } 
             return null;
         }
+
+        public List<LoggedUser> FetchUsers()
+        {
+            string page = "Usuários";
+            var columns = new List<string> { "IDN", "Task", "Id da Task", "Tasks completas" };
+
+            var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
+
+            var list = new List<LoggedUser>();
+
+            for (int i = 0; i < columnsDic["IDN"].Count; i++)
+            {
+                
+                LoggedUser user = new LoggedUser
+                {
+                    IDN = columnsDic["IDN"][i],
+                    ID = (i + 1),
+                    CompletedTasks = Convert.ToInt32(columnsDic["Tasks completas"][i]),
+                    _userDataCommiter = new SpreadsheetDataCommiter(_connection, _spreadsheetId)
+                };
+                try
+                {
+                    user.TaskGoal = columnsDic["Task"][i];
+                    user.TaskId = Convert.ToInt32(columnsDic["Id da Task"][i]);
+                }
+                catch
+                {
+                    list.Add(user);
+                    continue;
+                }
+
+                list.Add(user);   
+            }
+            _users = list;
+            return list;
+        }
     }
 }

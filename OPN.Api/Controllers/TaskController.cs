@@ -57,5 +57,11 @@ namespace OPN.Api.Controllers
             _taskService.CancelTask(IDN);
             return Ok();
         }
+
+        [HttpGet("GetRanking")]
+        public IActionResult GetRanking()
+        {
+            return Ok(_taskService.GetRanking());
+        }
     }
 }

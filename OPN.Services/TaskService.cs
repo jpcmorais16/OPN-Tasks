@@ -145,9 +145,11 @@ namespace OPN.Services
             return tasks.Where(t => t.ConclusionTime != null).ToList().Count;
         }
 
-        //public List<LoggedUser> GetRanking()
-        //{
-        //    var users = _userDataFetcher.
-        //}
+        public List<LoggedUser> GetRanking()
+        {
+            var users = _userDataFetcher.FetchUsers();
+
+            return users.OrderByDescending(u => u.CompletedTasks).ToList();
+        }
     }
 }
