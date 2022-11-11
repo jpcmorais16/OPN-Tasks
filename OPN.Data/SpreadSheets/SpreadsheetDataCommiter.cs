@@ -36,7 +36,7 @@ namespace OPN.Data.SpreadSheets
         {
             string page = "Usuários";
 
-            List<string> values = new List<string> { idn, id };
+            List<string> values = new List<string> { idn, id, "", "", "0" };
 
             _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
 
@@ -54,11 +54,12 @@ namespace OPN.Data.SpreadSheets
             _connection.UpdateSingleCell(_spreadsheetId, page, 4, Convert.ToInt32(userId) + 1, taskId.ToString());
         }
 
-        public void CompleteTaskFromUser(int userId, int? taskId)
+        public void CompleteTaskFromUser(int userId, int? taskId, int completedTasksFromUser)
         {
             string page1 = "Usuários";
             _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
             _connection.UpdateSingleCell(_spreadsheetId, page1, 4, Convert.ToInt32(userId) + 1, "");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 5, Convert.ToInt32(userId) + 1, (completedTasksFromUser + 1).ToString()); 
 
             string page2 = "Tasks";
             _connection.UpdateSingleCell(_spreadsheetId, page2, 8, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());

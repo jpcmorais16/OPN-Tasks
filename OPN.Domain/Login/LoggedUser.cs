@@ -15,6 +15,7 @@ namespace OPN.Domain.Login
         public string TaskGoal { get; set; }
         public int? TaskId { get; set; }
         public IUserDataCommiter _userDataCommiter { get; set; }
+        public int CompletedTasks { get; set; }
 
         public LoggedUser() { }
         public LoggedUser(IUserDataCommiter userDataCommiter)
@@ -31,10 +32,11 @@ namespace OPN.Domain.Login
 
         public void CompleteTask()
         {
-            if (TaskGoal == null)
+            if (TaskGoal == null || TaskGoal.Length == 0)
                 throw new Exception("Este IDN não possui uma task ativa!");
 
-            _userDataCommiter.CompleteTaskFromUser(ID, TaskId);
+            CompletedTasks += 1;
+            _userDataCommiter.CompleteTaskFromUser(ID, TaskId, CompletedTasks);
 
             TaskId = null;
             TaskGoal = null;
@@ -50,6 +52,11 @@ namespace OPN.Domain.Login
             TaskId = null;
             TaskGoal = null;
 
+        }
+
+        public int GetNumberOfCompletedTasks()
+        {
+            return CompletedTasks;
         }
     }
 }

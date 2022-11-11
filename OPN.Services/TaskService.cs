@@ -47,7 +47,7 @@ namespace OPN.Services
             if (user == null)
                 throw new Exception("Este IDN não fez login!");
 
-            if (user.TaskGoal != null)
+            if (user.TaskGoal != null && user.TaskGoal.Length > 0)
                 throw new Exception("Este IDN já possui uma task ativa!");
 
             var cancelledTask = tasks.FirstOrDefault(t => t.UserIDN.Length == 0);
@@ -129,9 +129,13 @@ namespace OPN.Services
 
         public int GetUserNumberOfCompletedTasks(string userIDN)
         {
-            var tasks = _taskFetcher.FetchProductHandlingTasks();
+            //var tasks = _taskFetcher.FetchProductHandlingTasks();
 
-            return tasks.Where(t => t.ConclusionTime != null && t.UserIDN.Equals(userIDN)).ToList().Count;
+            //return tasks.Where(t => t.ConclusionTime != null && t.UserIDN.Equals(userIDN)).ToList().Count;
+
+            var user = _userDataFetcher.FetchUser(userIDN);
+
+            return user.GetNumberOfCompletedTasks();
         }
 
         public int GetNumberOfCompletedTasks()
@@ -140,5 +144,10 @@ namespace OPN.Services
 
             return tasks.Where(t => t.ConclusionTime != null).ToList().Count;
         }
+
+        //public List<LoggedUser> GetRanking()
+        //{
+        //    var users = _userDataFetcher.
+        //}
     }
 }

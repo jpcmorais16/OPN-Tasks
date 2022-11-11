@@ -123,7 +123,7 @@ namespace OPN.Data.GoogleSheets
                 }
             }
             string page = "Usuários";
-            var columns = new List<string> { "IDN", "Task", "Id da Task" };
+            var columns = new List<string> { "IDN", "Task", "Id da Task", "Tasks completas" };
 
             var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
 
@@ -135,6 +135,7 @@ namespace OPN.Data.GoogleSheets
                     {
                         IDN = idn,
                         ID = (i + 1),
+                        CompletedTasks = Convert.ToInt32(columnsDic["Tasks completas"][i]),
                         _userDataCommiter = new SpreadsheetDataCommiter(_connection, _spreadsheetId)
                     };
                     try

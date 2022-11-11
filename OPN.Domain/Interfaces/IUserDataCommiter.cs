@@ -6,7 +6,7 @@ namespace OPN.Domain.Interfaces
     {
         LoggedUser RegisterNewUser(string iDN, string id);
         public void AddTaskToUser(int userId, string taskGoal, int taskId);
-        void CompleteTaskFromUser(int userId, int? taskId);
+        void CompleteTaskFromUser(int userId, int? taskId, int completedTasksFromUser);
         void CancelTaskFromUser(int iD, int? taskId);
     }
 }
