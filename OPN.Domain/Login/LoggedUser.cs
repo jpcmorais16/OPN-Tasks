@@ -12,7 +12,7 @@ namespace OPN.Domain.Login
     {
         public int ID { get; set; }
         public string IDN { get; set; }
-        public string TaskGoal { get; set; }
+        public string? TaskGoal { get; set; }
         public int? TaskId { get; set; }
         public IUserDataCommiter _userDataCommiter { private get; set; }
         public int CompletedTasks { get; set; }
@@ -44,7 +44,7 @@ namespace OPN.Domain.Login
 
         public void CancelTask()
         {
-            if (TaskGoal == null || TaskGoal.Length == 0)
+            if (TaskGoal == null || TaskGoal.Length == 0 || TaskGoal.Equals("nulo"))
                 throw new Exception("Este IDN não possui uma task ativa!");
 
             _userDataCommiter.CancelTaskFromUser(ID, TaskId);

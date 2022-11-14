@@ -15,7 +15,7 @@ namespace OPN.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromQuery] LoginRequest request)
         {
             var user = _loginService.Login(request);
             return Ok(user);

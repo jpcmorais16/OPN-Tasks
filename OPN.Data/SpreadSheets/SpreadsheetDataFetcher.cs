@@ -57,10 +57,12 @@ namespace OPN.Data.GoogleSheets
             for(int i = 0; i < columnsDic["Id"].Count; i++)
             {
                 DateTime? conclusionTime;
+                string idn = "";
                 
                 try
                 {
                      conclusionTime = Convert.ToDateTime(columnsDic["Momento de Conclusão"][i]);
+                    idn = columnsDic["IDN do Responsável"][i];
                 }
                 catch
                 {
@@ -77,7 +79,7 @@ namespace OPN.Data.GoogleSheets
                     },
                     InstitutionName = columnsDic["Instituição"][i],
                     ConclusionTime = conclusionTime,
-                    UserIDN = columnsDic["IDN do Responsável"][i],
+                    UserIDN = idn,
                     Goal = columnsDic["Task"][i]
 
                 };
@@ -89,8 +91,8 @@ namespace OPN.Data.GoogleSheets
 
         public List<Product> FetchProducts()
         {
-            if (productsList != null)
-                return productsList;
+            //if (productsList != null)
+            //    return productsList;
 
             string page = "Proporções";
             var columns = new List<string> { "Itens", "Lar", "Recanto", "Quantidade"};
@@ -115,13 +117,13 @@ namespace OPN.Data.GoogleSheets
 
         public LoggedUser FetchUser(string idn)
         {
-            foreach(LoggedUser user in _users)
-            {
-                if (user.IDN.Equals(idn))
-                {
-                    return user;
-                }
-            }
+            //foreach(LoggedUser user in _users)
+            //{
+            //    if (user.IDN.Equals(idn))
+            //    {
+            //        return user;
+            //    }
+            //}
             string page = "Usuários";
             var columns = new List<string> { "IDN", "Task", "Id da Task", "Tasks completas" };
 

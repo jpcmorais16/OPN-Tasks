@@ -47,7 +47,7 @@ namespace OPN.Services
             if (user == null)
                 throw new Exception("Este IDN não fez login!");
 
-            if (user.TaskGoal != null && user.TaskGoal.Length > 0)
+            if (!user.TaskGoal.Equals("nulo"))
                 throw new Exception("Este IDN já possui uma task ativa!");
 
             var cancelledTask = tasks.FirstOrDefault(t => t.UserIDN.Length == 0);

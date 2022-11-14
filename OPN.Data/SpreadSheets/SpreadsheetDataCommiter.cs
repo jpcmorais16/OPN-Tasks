@@ -26,7 +26,7 @@ namespace OPN.Data.SpreadSheets
 
             List<string> values = new List<string>
             {
-                goal, productName, productId.ToString(), institutionName, creationTime.ToString(), id.ToString(), userIDN
+                goal, productName, productId.ToString(), institutionName, creationTime.ToString(), id.ToString(), userIDN, "nulo"
             };
 
             _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
@@ -36,7 +36,7 @@ namespace OPN.Data.SpreadSheets
         {
             string page = "Usuários";
 
-            List<string> values = new List<string> { idn, id, "", "", "0" };
+            List<string> values = new List<string> { idn, id, "nulo", "nulo", "0" };
 
             _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
 
@@ -57,8 +57,8 @@ namespace OPN.Data.SpreadSheets
         public void CompleteTaskFromUser(int userId, int? taskId, int completedTasksFromUser)
         {
             string page1 = "Usuários";
-            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
-            _connection.UpdateSingleCell(_spreadsheetId, page1, 4, Convert.ToInt32(userId) + 1, "");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "nulo");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 4, Convert.ToInt32(userId) + 1, "nulo");
             _connection.UpdateSingleCell(_spreadsheetId, page1, 5, Convert.ToInt32(userId) + 1, (completedTasksFromUser + 1).ToString()); 
 
             string page2 = "Tasks";
@@ -68,11 +68,11 @@ namespace OPN.Data.SpreadSheets
         public void CancelTaskFromUser(int userId, int? taskId)
         {
             string page1 = "Usuários";
-            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
-            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "nulo");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "nulo");
 
             string page2 = "Tasks";
-            _connection.UpdateSingleCell(_spreadsheetId, page2,7, Convert.ToInt32(taskId) + 1, "");
+            _connection.UpdateSingleCell(_spreadsheetId, page2,7, Convert.ToInt32(taskId) + 1, "nulo");
         }
 
         public void UpdateIDN(int taskId, string loggedUserIDN)
