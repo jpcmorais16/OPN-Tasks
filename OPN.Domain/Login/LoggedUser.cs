@@ -32,7 +32,7 @@ namespace OPN.Domain.Login
 
         public void CompleteTask()
         {
-            if (TaskGoal == null || TaskGoal.Length == 0)
+            if (TaskGoal == null || TaskGoal.Length == 0 || TaskGoal.Equals("nulo"))
                 throw new Exception("Este IDN não possui uma task ativa!");
 
             CompletedTasks += 1;

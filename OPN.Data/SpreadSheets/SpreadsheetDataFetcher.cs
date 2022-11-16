@@ -43,7 +43,8 @@ namespace OPN.Data.GoogleSheets
         public List<OPNProductHandlingTask> FetchProductHandlingTasks()
         {
             var page = "Tasks";
-            var columns = new List<string> { "Task", "Id", "Produto", "Instituição", "Id do Produto", "Momento de Conclusão", "IDN do Responsável" };
+            var columns = new List<string> { "Task", "Id", "Produto", "Instituição", "Id do Produto",
+                "Momento de Conclusão", "IDN do Responsável", "Quantidade", "Proporção", "Momento de Cancelamento" };
 
             var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
 
@@ -57,18 +58,16 @@ namespace OPN.Data.GoogleSheets
             for(int i = 0; i < columnsDic["Id"].Count; i++)
             {
                 DateTime? conclusionTime;
+                DateTime? cancellationTime;
                 string idn = "";
-                
-                try
-                {
-                     conclusionTime = Convert.ToDateTime(columnsDic["Momento de Conclusão"][i]);
-                    idn = columnsDic["IDN do Responsável"][i];
-                }
-                catch
-                {
-                    conclusionTime = null;
-                }
-                
+
+                conclusionTime = columnsDic["Momento de Conclusão"][i].Equals("nulo") ?
+                    null : Convert.ToDateTime(columnsDic["Momento de Conclusão"][i]);
+
+                cancellationTime = columnsDic["Momento de Cancelamento"][i].Equals("nulo") ?
+                    null : Convert.ToDateTime(columnsDic["Momento de Cancelamento"][i]);
+
+
                 var task = new OPNProductHandlingTask
                 {
                     Id = Convert.ToInt32(columnsDic["Id"][i]),
@@ -79,8 +78,11 @@ namespace OPN.Data.GoogleSheets
                     },
                     InstitutionName = columnsDic["Instituição"][i],
                     ConclusionTime = conclusionTime,
-                    UserIDN = idn,
-                    Goal = columnsDic["Task"][i]
+                    UserIDN = columnsDic["IDN do Responsável"][i],
+                    Goal = columnsDic["Task"][i], 
+                    Quantity = Convert.ToInt32(columnsDic["Quantidade"][i]),
+                    InstitutionProportion = Convert.ToInt32(columnsDic["Proporção"][i]), 
+                    CancellationTime = cancellationTime
 
                 };
                 result.Add(task);

@@ -19,14 +19,14 @@ namespace OPN.Data.SpreadSheets
             _spreadsheetId = spreadsheetId;
         }
 
-        public void Commit(string goal, int id, string userIDN, DateTime creationTime, string institutionName, string productName, int productId)
+        public void CommitTask(string goal, int id, string userIDN, string creationTime, string institutionName, string productName, int productId, int quantity, int proportion, string cancellationTime)
         {
             
             string page = "Tasks";
 
             List<string> values = new List<string>
             {
-                goal, productName, productId.ToString(), institutionName, creationTime.ToString(), id.ToString(), userIDN, "nulo"
+                goal, productName, productId.ToString(), institutionName, creationTime, id.ToString(), userIDN, "nulo", quantity.ToString(), proportion.ToString(), cancellationTime
             };
 
             _connection.AppendRowToSpreadsheet(_spreadsheetId, page, values);
@@ -69,16 +69,18 @@ namespace OPN.Data.SpreadSheets
         {
             string page1 = "Usuários";
             _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "nulo");
-            _connection.UpdateSingleCell(_spreadsheetId, page1, 3, Convert.ToInt32(userId) + 1, "nulo");
+            _connection.UpdateSingleCell(_spreadsheetId, page1, 4, Convert.ToInt32(userId) + 1, "nulo");
 
             string page2 = "Tasks";
             _connection.UpdateSingleCell(_spreadsheetId, page2,7, Convert.ToInt32(taskId) + 1, "nulo");
+            _connection.UpdateSingleCell(_spreadsheetId, page2, 11, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
         }
 
-        public void UpdateIDN(int taskId, string loggedUserIDN)
+        public void UpdateTaskIDN(int taskId, string loggedUserIDN)
         {
             string page = "Tasks";
             _connection.UpdateSingleCell(_spreadsheetId, page, 7, Convert.ToInt32(taskId) + 1, loggedUserIDN);
+            _connection.UpdateSingleCell(_spreadsheetId, page, 11, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
         }
     }
 }

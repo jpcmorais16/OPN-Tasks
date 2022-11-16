@@ -23,24 +23,30 @@ namespace OPN.Domain.Tasks
             InstitutionName = institutionName;
             InstitutionProportion = institutionProportion;
             CreationTime = DateTime.Now;
-            Goal = $"Levar {InstitutionProportion * Product.Amount / 100} de {Product.Name} para {InstitutionName}";
+            Quantity = InstitutionProportion * Product.Amount / 100;
+            Goal = $"Levar {Quantity} de {Product.Name} para {InstitutionName}";     
             _commiter = handler;
         }
         public Product Product { get; set; }
         public string InstitutionName { get; set; }
         public int InstitutionProportion { get; set; }
+        public int Quantity { get; set; }
+        public DateTime? CancellationTime { get; set; }
 
         public override void Register()
         {
             if (_commiter == null)
                 throw new Exception("Essa task já está registrada");
 
-            _commiter.Commit(Goal, Id, UserIDN, CreationTime, InstitutionName, Product.Name, Product.Id);
+
+            _commiter.CommitTask(Goal, Id, UserIDN, CreationTime.ToString(), InstitutionName,
+                Product.Name, Product.Id, Quantity, InstitutionProportion,
+                CancellationTime == null ? "nulo" : ConclusionTime.ToString()!);
         }
 
         public void UpdateIDN(string loggedUserIDN)
         {
-            _commiter.UpdateIDN(Id, loggedUserIDN);
+            _commiter.UpdateTaskIDN(Id, loggedUserIDN);
         }
     }
 }

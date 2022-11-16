@@ -36,7 +36,7 @@ namespace OPN.Services
             user.CompleteTask();
         }
 
-        public OPNProductHandlingTask CreateRandomProductHandlingTask(TaskRequest request)
+        public OPNProductHandlingTask CreateRandomProductHandlingTask(TaskRequest request)//TODO:move this method into the user
         {
             //get a random product
 
@@ -47,19 +47,8 @@ namespace OPN.Services
             if (user == null)
                 throw new Exception("Este IDN não fez login!");
 
-            if (!user.TaskGoal.Equals("nulo"))
-                throw new Exception("Este IDN já possui uma task ativa!");
-
-            var cancelledTask = tasks.FirstOrDefault(t => t.UserIDN.Length == 0);
-
-            if(cancelledTask != null)
-            {
-                cancelledTask._commiter = _taskCommiter;
-                cancelledTask.UpdateIDN(request.LoggedUserIDN);
-                user.AddTask(cancelledTask);
-
-                return cancelledTask;
-            }
+            if (!user.TaskGoal!.Equals("nulo"))
+                return tasks.FirstOrDefault(t => t.ConclusionTime == null && t.UserIDN.Equals(user.IDN))!;       
 
             user._userDataCommiter = _userDataCommiter;
             var institutions = products.First().Institutions;//fazer o filtro
@@ -70,8 +59,20 @@ namespace OPN.Services
             var remainingProducts = products.Where(p => p.Institutions.Any(i =>
             !(tasks.Any(t => t.Product.Name.Equals(p.Name) && t.InstitutionName.Equals(i))))).ToList();//O(n^3)
 
-            if (remainingProducts.Count == 0)
-                throw new Exception("Não há mais tasks");
+            if (remainingProducts.Count == 0) {
+                var cancelledTask = tasks.FirstOrDefault(t => t.UserIDN.Equals("nulo"));
+                if (cancelledTask != null)  throw new Exception("Não há mais tasks!"); 
+
+                if (cancelledTask != null)
+                {
+                    cancelledTask._commiter = _taskCommiter;
+                    cancelledTask.UpdateIDN(request.LoggedUserIDN);
+                    user.AddTask(cancelledTask);
+
+                    return cancelledTask;
+                }
+            }
+                
 
             Random random = new Random();
 
