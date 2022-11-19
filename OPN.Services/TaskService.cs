@@ -47,7 +47,7 @@ namespace OPN.Services
             if (user == null)
                 throw new Exception("Este IDN não fez login!");
 
-            if (!user.TaskGoal!.Equals("nulo"))
+            if (user.TaskGoal is not null)
                 return tasks.FirstOrDefault(t => t.ConclusionTime == null && t.UserIDN.Equals(user.IDN))!;       
 
             user._userDataCommiter = _userDataCommiter;
@@ -79,7 +79,7 @@ namespace OPN.Services
             Product taskProduct = remainingProducts[random.Next(0, remainingProducts.Count)];
 
             var availableInstitutions = taskProduct.Institutions.Where(i =>
-            !(tasks.Any(t => t.Product.Name.Equals(taskProduct.Name) && t.InstitutionName.Equals(i)))).ToList();
+            !(tasks.Any(t => t.Product.Name.Equals(taskProduct.Name) && t.InstitutionName.Equals(i))) && taskProduct.GetInstitutionProportion(i) != 0).ToList();
 
             var institutionName = availableInstitutions[random.Next(0, availableInstitutions.Count)];
 

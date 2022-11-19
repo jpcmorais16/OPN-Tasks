@@ -18,51 +18,65 @@ namespace OPN.ExternalConnections.GoogleSheets
     {
         private SheetsService _sheetsService1;
         private SheetsService _sheetsService2;
+        private SheetsService _sheetsService3;
+        private List<SheetsService> _sheetsServiceList = new List<SheetsService>();
         private Tuple<int, int> _baseRange;
 
         public GoogleSheetsConnection(IConfiguration configuration)
         {        
-            GoogleSheetsServiceAccountCredentials credentials = configuration.GetSection("Google").Get<GoogleSheetsServiceAccountCredentials>();
+            GoogleSheetsServiceAccountCredentials credentials1 = configuration.GetSection("acc1").Get<GoogleSheetsServiceAccountCredentials>();
+            GoogleSheetsServiceAccountCredentials credentials2 = configuration.GetSection("acc2").Get<GoogleSheetsServiceAccountCredentials>();
+            GoogleSheetsServiceAccountCredentials credentials3 = configuration.GetSection("acc3").Get<GoogleSheetsServiceAccountCredentials>();
 
-            var xCred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials.client_email)
+            var xCred1 = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials1.client_email)
             {
                 Scopes = new[] {
                 SheetsService.Scope.Spreadsheets
             }
-            }.FromPrivateKey(credentials.private_key));
+            }.FromPrivateKey(credentials1.private_key));
+
+            var xCred2 = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials2.client_email)
+            {
+                Scopes = new[] {
+                SheetsService.Scope.Spreadsheets
+            }
+            }.FromPrivateKey(credentials1.private_key));
+
+           
+
+            var xCred3 = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials3.client_email)
+            {
+                Scopes = new[] {
+                SheetsService.Scope.Spreadsheets
+            }
+            }.FromPrivateKey(credentials1.private_key));
+
 
             _sheetsService1 = new SheetsService(
                 new BaseClientService.Initializer()
                 {
-                    HttpClientInitializer = xCred,
+                    HttpClientInitializer = xCred1,
                 }
             );
+            _sheetsService2 = new SheetsService(
+                new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = xCred2,
+                }
+            );
+            _sheetsService3 = new SheetsService(
+                new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = xCred3,
+                }
+            );
+
+            _sheetsServiceList.Add(_sheetsService1);
+            _sheetsServiceList.Add(_sheetsService2);
+            _sheetsServiceList.Add(_sheetsService3);
+
 
             _baseRange = new Tuple<int, int>(200, 15);
-        }
-
-        public GoogleSheetsConnection(string credPath, int baseNumberOfRows, int baseNumberOfColumns)
-        {
-            var path = File.ReadAllText(credPath);
-            GoogleSheetsServiceAccountCredentials credentials = JsonConvert.DeserializeObject<GoogleSheetsServiceAccountCredentials>(path);
-
-
-            var xCred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(credentials.client_email)
-            {
-                Scopes = new[] {
-                SheetsService.Scope.Spreadsheets
-            }
-            }.FromPrivateKey(credentials.private_key));
-
-            _sheetsService1 = new SheetsService(
-                new BaseClientService.Initializer()
-                {
-                    HttpClientInitializer = xCred,
-                }
-            );
-
-            _baseRange = new Tuple<int, int>(baseNumberOfRows, baseNumberOfColumns);
-
         }
 
         public Dictionary<string, List<string>> GetColumnsFromSpreadsheet(string spreadsheetId, string page, List<string> columns)
@@ -128,57 +142,121 @@ namespace OPN.ExternalConnections.GoogleSheets
 
         private ValueRange MakeGetRequest(string spreadsheetId, string page)
         {
-            var request = _sheetsService1.Spreadsheets.Values.Get(spreadsheetId,
-                SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page));
+            //var request1 = _sheetsService1.Spreadsheets.Values.Get(spreadsheetId,
+            //    SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page));
+            //var request2 = _sheetsService2.Spreadsheets.Values.Get(spreadsheetId,
+            //    SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page));
 
-            ValueRange? response;
 
-            try
+            //try
+            //{
+            //    response = request1.Execute();
+            //}
+
+            //catch
+            //{
+
+            //    response = request2.Execute();
+            //}
+
+            ValueRange? response = null;
+
+            foreach(var service in _sheetsServiceList)
             {
-                response = request.Execute();
+                try
+                {
+                    response = service.Spreadsheets.Values.Get(spreadsheetId,
+                    SpreadsheetRangeHelper.GetReadRequestRange(1, _baseRange.Item1, 1, _baseRange.Item2, page)).Execute();
+
+                    break;
+                }
+                catch
+                {
+                    continue;
+                }
             }
 
-            catch
-            {
-                Thread.Sleep(60000);
-                response = request.Execute();
-            }
+            if (response == null)
+                throw new Exception("Muitas requests!");
 
-            return response;
+            return response; 
         }
 
         private void MakeAppendRequest(string spreadsheetId, ValueRange valuerange, string range)
         {
-            var appendRequest = _sheetsService1.Spreadsheets.Values.Append(valuerange, spreadsheetId, range);
-            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            //var appendRequest = _sheetsService1.Spreadsheets.Values.Append(valuerange, spreadsheetId, range);
+            //appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
 
-            try
-            {      
-                 appendRequest.Execute();
-            }
-            catch
+            //try
+            //{      
+            //     appendRequest.Execute();
+            //}
+            //catch
+            //{
+            //    Thread.Sleep(60000);
+            //    appendRequest.Execute();
+
+            //}
+            AppendValuesResponse? response = null;
+
+            foreach (var service in _sheetsServiceList)
             {
-                Thread.Sleep(60000);
-                appendRequest.Execute();
+                try
+                {
+                    var appendRequest = service.Spreadsheets.Values.Append(valuerange, spreadsheetId, range);
+                    appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
 
+                    response = appendRequest.Execute();
+
+                    break;
+                }
+                catch
+                {
+                    continue;
+                }
             }
+
+            if (response == null)
+                throw new Exception("Muitas requests!");
         }
 
         private void MakeUpdateRequest(string spreadsheetId, ValueRange valuerange, string range)
         {
-            var updateRequest = _sheetsService1.Spreadsheets.Values.Update(valuerange, spreadsheetId, range);
-            updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            //var updateRequest = _sheetsService1.Spreadsheets.Values.Update(valuerange, spreadsheetId, range);
+            //updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
 
-            try
+            //try
+            //{
+            //    updateRequest.Execute();
+            //}
+            //catch
+            //{
+            //    Thread.Sleep(60000);
+            //    updateRequest.Execute();
+            //}
+
+            UpdateValuesResponse? response = null;
+
+            foreach (var service in _sheetsServiceList)
             {
-                updateRequest.Execute();
+                try
+                {
+                    var updateRequest = service.Spreadsheets.Values.Update(valuerange, spreadsheetId, range);
+                    updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+
+                    response = updateRequest.Execute();
+
+                    break;
+                }
+                catch
+                {
+                    continue;
+                }
             }
-            catch
-            {
-                Thread.Sleep(60000);
-                updateRequest.Execute();
-            }
-            
+
+            if (response == null)
+                throw new Exception("Muitas requests!");
+
         }
     }
 }

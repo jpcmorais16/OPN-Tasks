@@ -37,7 +37,6 @@ namespace OPN.Data.GoogleSheets
             var columnsDic = _connection.GetColumnsFromSpreadsheet(_spreadsheetId, page, columns);
 
             return columnsDic["IDN"].Count;
-
         }
 
         public List<OPNProductHandlingTask> FetchProductHandlingTasks()
@@ -55,17 +54,31 @@ namespace OPN.Data.GoogleSheets
 
 
 
-            for(int i = 0; i < columnsDic["Id"].Count; i++)
+            for (int i = 0; i < columnsDic["Id"].Count; i++)
             {
                 DateTime? conclusionTime;
                 DateTime? cancellationTime;
                 string idn = "";
 
-                conclusionTime = columnsDic["Momento de Conclusão"][i].Equals("nulo") ?
-                    null : Convert.ToDateTime(columnsDic["Momento de Conclusão"][i]);
+                var conc = columnsDic["Momento de Conclusão"][i].Remove(columnsDic["Momento de Conclusão"][i].Length - 1);
+                conc = conc.Remove(conc.Length - 1);
+                var canc = columnsDic["Momento de Cancelamento"][i].Remove(columnsDic["Momento de Cancelamento"][i].Length - 1);
+                canc = canc.Remove(canc.Length - 1);
 
-                cancellationTime = columnsDic["Momento de Cancelamento"][i].Equals("nulo") ?
-                    null : Convert.ToDateTime(columnsDic["Momento de Cancelamento"][i]);
+                try
+                {
+                    conclusionTime = columnsDic["Momento de Conclusão"][i].Equals("nulo") ?
+                    null : Convert.ToDateTime(conc);
+
+                    cancellationTime = columnsDic["Momento de Cancelamento"][i].Equals("nulo") ?
+                    null : Convert.ToDateTime(canc); 
+                }
+                catch
+                {
+                    conclusionTime = null;
+                    cancellationTime = null;
+                }
+
 
 
                 var task = new OPNProductHandlingTask
@@ -144,7 +157,7 @@ namespace OPN.Data.GoogleSheets
                     };
                     try
                     {
-                        user.TaskGoal = columnsDic["Task"][i];
+                        user.TaskGoal = columnsDic["Task"][i].Equals("nulo")? null : columnsDic["Task"][i];
                         user.TaskId = Convert.ToInt32(columnsDic["Id da Task"][i]);
                     }
                     catch

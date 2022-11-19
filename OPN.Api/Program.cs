@@ -15,6 +15,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build => 
+
+    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader()
+
+));
 
 
 //private static readonly ISpreadsheetConnection _connection = new GoogleSheetsConnection(@"C:\Users\Trilogo\Desktop\credentials\credentials.json");
@@ -43,6 +48,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("corspolicy");
 
 app.MapControllers();
 

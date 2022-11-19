@@ -62,7 +62,7 @@ namespace OPN.Data.SpreadSheets
             _connection.UpdateSingleCell(_spreadsheetId, page1, 5, Convert.ToInt32(userId) + 1, (completedTasksFromUser + 1).ToString()); 
 
             string page2 = "Tasks";
-            _connection.UpdateSingleCell(_spreadsheetId, page2, 8, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
+            _connection.UpdateSingleCell(_spreadsheetId, page2, 8, Convert.ToInt32(taskId) + 1, DateTime.Now.ToLocalTime().ToString());
         }
 
         public void CancelTaskFromUser(int userId, int? taskId)
@@ -73,14 +73,14 @@ namespace OPN.Data.SpreadSheets
 
             string page2 = "Tasks";
             _connection.UpdateSingleCell(_spreadsheetId, page2,7, Convert.ToInt32(taskId) + 1, "nulo");
-            _connection.UpdateSingleCell(_spreadsheetId, page2, 11, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
+            _connection.UpdateSingleCell(_spreadsheetId, page2, 11, Convert.ToInt32(taskId) + 1, DateTime.UtcNow.ToString());
         }
 
         public void UpdateTaskIDN(int taskId, string loggedUserIDN)
         {
             string page = "Tasks";
             _connection.UpdateSingleCell(_spreadsheetId, page, 7, Convert.ToInt32(taskId) + 1, loggedUserIDN);
-            _connection.UpdateSingleCell(_spreadsheetId, page, 11, Convert.ToInt32(taskId) + 1, DateTime.Now.ToString());
+            _connection.UpdateSingleCell(_spreadsheetId, page, 11, Convert.ToInt32(taskId) + 1, DateTime.UtcNow.ToString());
         }
     }
 }

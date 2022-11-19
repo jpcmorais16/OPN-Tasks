@@ -44,3 +44,8 @@ C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions
 C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\System.Web.Cors.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\System.Web.Http.Cors.dll
+C:\Users\Trilogo\Desktop\OPN-Tasks\OPN.Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
