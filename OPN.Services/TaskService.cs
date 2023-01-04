@@ -15,16 +15,14 @@ namespace OPN.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly IProductHandlingTaskDataFetcher _taskFetcher;
-        private readonly IProductHandlingTaskDataCommiter _taskCommiter;
-        private readonly IUserDataFetcher _userDataFetcher;
-        private readonly IUserDataCommiter _userDataCommiter;
-        public TaskService(IProductHandlingTaskDataFetcher taskFetcher, IProductHandlingTaskDataCommiter taskCommiter, IUserDataFetcher userDataFetcher, IUserDataCommiter userDataCommiter)
+        //private readonly IProductHandlingTaskDataFetcher _taskFetcher;
+        //private readonly IProductHandlingTaskDataCommiter _taskCommiter;
+        //private readonly IUserDataFetcher _userDataFetcher;
+        //private readonly IUserDataCommiter _userDataCommiter;
+        private readonly IUnitOfWork _unitOfWork;
+        public TaskService(IUnitOfWork unitOfWork)
         {
-            _taskFetcher = taskFetcher;
-            _taskCommiter = taskCommiter;
-            _userDataFetcher = userDataFetcher;
-            _userDataCommiter = userDataCommiter;
+            _unitOfWork = unitOfWork;
         }
         public void CompleteTask(string UserIDN)
         {

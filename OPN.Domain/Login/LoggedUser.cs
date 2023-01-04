@@ -6,44 +6,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OPN.Domain.Login
+namespace OPN.Domain.Login;
+public class LoggedUser
 {
-    public class LoggedUser
+    public int Id { get; set; }
+    public string IDN { get; set; }
+    public OPNTask? Task { get; set; }
+    public int CompletedTasks { get; set; }
+    public int CancelledTasks { get; set; }
+
+    public LoggedUser() { }
+
+    public void AddTask(OPNTask task)
     {
-        public int Id { get; set; }
-        public string IDN { get; set; }
-        public OPNTask? Task { get; set; }
-        public int CompletedTasks { get; set; }
-        public int CancelledTasks { get; set; }
+        if (Task != null)
+            throw new Exception("Este usuário já possui uma task ativa!");
 
-        public LoggedUser() { }
+        Task = task;
+    }
 
-        public void AddTask(OPNTask task)
-        {
-            if (Task != null)
-                throw new Exception("Este usuário já possu uma task ativ!");
+    public void CompleteTask()
+    {
+        if (Task == null)
+            throw new Exception("Este usuário não possui uma task ativa!");
 
-            Task = task;
-        }
+        CompletedTasks += 1;
 
-        public void CompleteTask()
-        {
-            if (Task == null)
-                throw new Exception("Este IDN não possui uma task ativa!");
+        Task = null;
+    }
 
-            CompletedTasks += 1;
+    public void CancelTask()
+    {
+        if (Task == null)
+            throw new Exception("Este usuário não possui uma task ativa!");
 
-            Task = null;
-        }
+        CancelledTasks += 1;
 
-        public void CancelTask()
-        {
-            if (Task == null)
-                throw new Exception("Este IDN não possui uma task ativa!");
-
-            CancelledTasks += 1;
-
-            Task = null;
-        }
+        Task = null;
     }
 }
