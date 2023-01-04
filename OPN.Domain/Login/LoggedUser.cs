@@ -10,53 +10,40 @@ namespace OPN.Domain.Login
 {
     public class LoggedUser
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string IDN { get; set; }
-        public string? TaskGoal { get; set; }
-        public int? TaskId { get; set; }
-        public IUserDataCommiter _userDataCommiter { private get; set; }
+        public OPNTask? Task { get; set; }
         public int CompletedTasks { get; set; }
+        public int CancelledTasks { get; set; }
 
         public LoggedUser() { }
-        public LoggedUser(IUserDataCommiter userDataCommiter)
-        {
-            _userDataCommiter = userDataCommiter;
-        }
 
         public void AddTask(OPNTask task)
         {
-            TaskId = task.Id;
-            TaskGoal = task.Goal;
-            _userDataCommiter.AddTaskToUser(ID, task.Goal, task.Id);
+            if (Task != null)
+                throw new Exception("Este usuário já possu uma task ativ!");
+
+            Task = task;
         }
 
         public void CompleteTask()
         {
-            if (TaskGoal == null || TaskGoal.Length == 0 || TaskGoal.Equals("nulo"))
+            if (Task == null)
                 throw new Exception("Este IDN não possui uma task ativa!");
 
             CompletedTasks += 1;
-            _userDataCommiter.CompleteTaskFromUser(ID, TaskId, CompletedTasks);
 
-            TaskId = null;
-            TaskGoal = null;
+            Task = null;
         }
 
         public void CancelTask()
         {
-            if (TaskGoal == null || TaskGoal.Length == 0 || TaskGoal.Equals("nulo"))
+            if (Task == null)
                 throw new Exception("Este IDN não possui uma task ativa!");
 
-            _userDataCommiter.CancelTaskFromUser(ID, TaskId);
+            CancelledTasks += 1;
 
-            TaskId = null;
-            TaskGoal = null;
-
-        }
-
-        public int GetNumberOfCompletedTasks()
-        {
-            return CompletedTasks;
+            Task = null;
         }
     }
 }
