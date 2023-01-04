@@ -31,7 +31,7 @@ builder.Services.AddSingleton<IProductHandlingTaskDataFetcher, SpreadsheetDataFe
 builder.Services.AddSingleton<IProductHandlingTaskDataCommiter, SpreadsheetDataCommiter>(provider => new SpreadsheetDataCommiter(provider.GetRequiredService<ISpreadsheetConnection>(), "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"));
 builder.Services.AddSingleton<IUserDataFetcher, SpreadsheetDataFetcher>(provider =>  new SpreadsheetDataFetcher(provider.GetRequiredService<ISpreadsheetConnection>(), "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"));
 builder.Services.AddSingleton<IUserDataCommiter, SpreadsheetDataCommiter>(provider => new SpreadsheetDataCommiter(provider.GetRequiredService<ISpreadsheetConnection>(), "16x8We-oqLJOZdm_seunG283Ki5AOKb0UN_CZnnP_Nsw"));
-builder.Services.AddSingleton<ITaskService, TaskService>();
+builder.Services.AddSingleton<ITaskService, ProductHandlingTaskService>();
 builder.Services.AddSingleton<ILoginService, LoginService>();
 
 

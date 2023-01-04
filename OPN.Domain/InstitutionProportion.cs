@@ -6,4 +6,5 @@ public class InstitutionProportion
     public int ProductId { get; set; }
     public int InstitutionId { get; set; }
     public int Value { get; set; }
+    public bool AlreadyUsed { get; set; }
 }
