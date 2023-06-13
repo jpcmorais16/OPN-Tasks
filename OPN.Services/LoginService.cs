@@ -1,38 +1,30 @@
-﻿using OPN.Domain.Interfaces;
+﻿using OPN.Domain;
 using OPN.Domain.Login;
 using OPN.Services.Interfaces;
-using OPN.Services.Interfaces.DataInterfaces;
 using OPN.Services.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OPN.Services
+namespace OPN.Services;
+
+public class LoginService: ILoginService
 {
-    public class LoginService: ILoginService
+    private readonly IUnitOfWork _unitOfWork;
+
+    public LoginService(IUnitOfWork unitOfWork)
     {
-        private readonly IUserDataFetcher _fetcher;
-        private readonly IUserDataCommiter _commiter;
+        _unitOfWork = unitOfWork;
+    }
 
-        public LoginService(IUserDataFetcher fetcher, IUserDataCommiter commiter)
+    public async Task<LoggedUser> Login(LoginRequest request)
+    {
+        var user = await _unitOfWork.UserRepository.GetByIdn(request.IDN);
+
+        if(user == null)
         {
-            _fetcher = fetcher;
-            _commiter = commiter;
+            user = await _unitOfWork.UserRepository.CreateUser(request.IDN, request.UserName);
         }
 
-        public LoggedUser Login(LoginRequest request)
-        {
-            var user = _fetcher.FetchUser(request.IDN);
+        await _unitOfWork.CommitAsync();
 
-            if(user == null)
-            {
-                var id = _fetcher.FetchNumberOfUsers() + 1; 
-                user = _commiter.RegisterNewUser(request.IDN, id.ToString());
-            }
-            return user;
-        }
-
+        return user;
     }
 }

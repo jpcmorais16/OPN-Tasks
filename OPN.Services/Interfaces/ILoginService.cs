@@ -10,6 +10,6 @@ namespace OPN.Services.Interfaces
 {
     public interface ILoginService
     {
-        public LoggedUser Login(LoginRequest request);
+        public Task<LoggedUser> Login(LoginRequest request);
     }
 }

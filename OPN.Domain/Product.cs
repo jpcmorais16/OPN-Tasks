@@ -1,4 +1,6 @@
-﻿namespace OPN.Domain;
+﻿using OPN.Domain.Tasks;
+
+namespace OPN.Domain;
 public class Product
 {
     public int Id { get; set; }
@@ -6,11 +8,13 @@ public class Product
     public int InitialAmount { get; set; }
     public int CurrentAmount { get; set; }
 
+    public List<Institution> Institutions { get; } = new();
+
     public Product()
     {
-
+            
     }
-
+    
     public Product(Dictionary<string, int> institutionProportions, int initialAmount)
     {
         InitialAmount = initialAmount;

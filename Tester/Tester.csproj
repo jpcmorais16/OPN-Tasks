@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OPN.Data\OPN.Data.csproj" />
-    <ProjectReference Include="..\OPN.ExternalConnections\OPN.ExternalConnections.csproj" />
   </ItemGroup>
 
 </Project>

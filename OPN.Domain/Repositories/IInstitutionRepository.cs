@@ -2,5 +2,5 @@
 
 public interface IInstitutionRepository
 {
-    Task<Institution> GetByIdAsync(int institutionId);
+    Task<Institution?> GetByIdAsync(int institutionId);
 }

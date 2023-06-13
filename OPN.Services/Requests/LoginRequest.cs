@@ -9,5 +9,6 @@ namespace OPN.Services.Requests
     public class LoginRequest
     {
         public string IDN { get; set; }
+        public string UserName { get; set; }
     }
 }

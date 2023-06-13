@@ -5,10 +5,10 @@ namespace OPN.Domain;
 public interface IUnitOfWork
 {
     IUserRepository UserRepository { get; }
-    IActiveProductHandlingTasksRepository ActiveProductHandlingTasksRepository { get; }
+    IProductHandlingTasksRepository ProductHandlingTasksRepository { get; }
     IProductRepository ProductRepository { get; }
     IInstitutionRepository InstitutionRepository { get; }
-    IProportionRepository ProportionRepository { get; }
+    IProportionsRepository ProportionsRepository { get; }
 
     Task CommitAsync();
 }

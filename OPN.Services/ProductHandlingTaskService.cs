@@ -1,67 +1,105 @@
 ﻿using OPN.Domain;
+using OPN.Domain.Login;
 using OPN.Domain.Tasks;
+using OPN.Services.Interfaces;
 using OPN.Services.Requests;
 
 namespace OPN.Services;
-public class ProductHandlingTaskService
+public class ProductHandlingTaskService: ITaskService
 {
     private readonly IUnitOfWork _unitOfWork;
     public ProductHandlingTaskService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-    public async Task CompleteTask(string UserIDN)
+    public List<OPNProductHandlingTask> GetUserCompletedTasks(string userIdn)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdnAsync(UserIDN);
+        throw new NotImplementedException();
+    }
+
+    public List<OPNProductHandlingTask> GetAllCompletedTasks()
+    {
+        throw new NotImplementedException();
+    }
+
+    public int GetUserNumberOfCompletedTasks(string userIdn)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int GetNumberOfCompletedTasks()
+    {
+        throw new NotImplementedException();
+    }
+
+    void ITaskService.CompleteTask(string userIdn)
+    {
+        throw new NotImplementedException();
+    }
+
+    void ITaskService.CancelTask(string idn)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<LoggedUser> GetRanking()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task CompleteTask(string userIdn)
+    {
+        var user =  await _unitOfWork.UserRepository.GetByIdn(userIdn);
 
         if (user == null)
             throw new Exception("Esse IDN não fez login!");
 
         user.CompleteTask();
 
-        await _unitOfWork.UserRepository.UpdateUserAsync(user);
+        _unitOfWork.UserRepository.UpdateUser(user);
 
         await _unitOfWork.CommitAsync();
     }
 
     public async Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(TaskRequest request)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdnAsync(request.LoggedUserIDN);
+        var user =   await _unitOfWork.UserRepository.GetByIdn(request.LoggedUserIDN);
 
-        var proportion = await _unitOfWork.ProportionRepository.GetRandomAvailableProportionAsync();
+        if (user == null)
+            throw new Exception("Usuário não encontrado");
 
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(proportion.ProductId);
-        var institution = await _unitOfWork.InstitutionRepository.GetByIdAsync(proportion.InstitutionId);
-
+        var proportion =  await _unitOfWork.ProportionsRepository.GetRandomAvailableProportionAsync();
+        
         var task = new OPNProductHandlingTask 
         {
-            UserIdn = request.LoggedUserIDN,
-            Institution = institution,
-            Product = product,
+            UserIDN = request.LoggedUserIDN,
+            Institution = proportion!.Institution,
+            Product = proportion.Product,
             CreationTime = DateTime.UtcNow 
         };
 
         user.AddTask(task);
 
-        await _unitOfWork.ActiveProductHandlingTasksRepository.RegisterTaskAsync(task);
+        proportion.Status = EProportionStatus.InUse;
+
+        await _unitOfWork.ProductHandlingTasksRepository.RegisterTaskAsync(task);
 
         await _unitOfWork.CommitAsync();
 
         return task;
     }
 
-    public async Task CancelTask(string IDN)
+    public async Task CancelTask(string idn)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdnAsync(IDN);
+        var user = await _unitOfWork.UserRepository.GetByIdn(idn);
 
         if(user == null)
             throw new Exception("Este IDN não fez login!");
 
         user.CancelTask();
 
-        var task = await _unitOfWork.ActiveProductHandlingTasksRepository.GetByIdAsync();
-
-        await _unitOfWork.ActiveProductHandlingTasksRepository.DeleteAsync(task);
+        var task = await _unitOfWork.ProductHandlingTasksRepository.GetByIdAsync(user.TaskId);
+        task.Status = ETaskStatus.Cancelled;
 
         await _unitOfWork.CommitAsync();
     }

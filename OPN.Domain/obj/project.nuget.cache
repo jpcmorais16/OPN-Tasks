@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pDhtI+QZiw6A5PCnzd2FMGT2tGMwPiagDuO8siabY80sFnR3pi8Ck6/iYl0Tyyt1dHua3BKqSXpDz+8uRAhHfg==",
+  "dgSpecHash": "OAheWd4JHr3BmV4phxL9CDj0v2+nOjdu0YJqs2afX90WeLDlSx+tIKObhqSD9KT7JlBvZt6jGdcJ6wvnsTu4CQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Trilogo\\Desktop\\Tasks\\OPN-Tasks\\OPN-Tasks\\OPN.Domain\\OPN.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Trilogo\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\Trilogo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

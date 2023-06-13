@@ -3,18 +3,10 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using OPN.Data.SpreadSheets.Interfaces;
-using OPN.ExternalConnections.GoogleSheets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OPN.ExternalConnections.GoogleSheets
 {
-    public class GoogleSheetsConnection: ISpreadsheetConnection
+    public class GoogleSheetsConnection
     {
         private SheetsService _sheetsService1;
         private SheetsService _sheetsService2;

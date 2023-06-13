@@ -15,9 +15,9 @@ namespace OPN.Api.Controllers
         }
         
         [HttpGet("CreateRandomTask")]
-        public IActionResult CreateRandomTask([FromQuery] string IDN)
+        public async Task<IActionResult> CreateRandomTask([FromQuery] string IDN)
         {
-            var result = _taskService.CreateRandomProductHandlingTask(new TaskRequest { LoggedUserIDN = IDN});
+            var result = await _taskService.CreateRandomProductHandlingTask(new TaskRequest { LoggedUserIDN = IDN});
 
             return Ok(result);
         }

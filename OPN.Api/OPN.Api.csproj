@@ -21,6 +21,6 @@
     <ProjectReference Include="..\OPN.Services\OPN.Services.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1production_1json__JsonSchema=",." /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -15,9 +15,9 @@ namespace OPN.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromQuery] LoginRequest request)
+        public async Task<IActionResult> Login([FromQuery] LoginRequest request)
         {
-            var user = _loginService.Login(request);
+            var user = await _loginService.Login(request);
             return Ok(user);
         }
     }

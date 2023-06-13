@@ -58,3 +58,11 @@ C:\Users\Trilogo\Desktop\OPN-Tasks\Tester\bin\Debug\net6.0\OPN.Services.pdb
 C:\Users\Trilogo\Desktop\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.csproj.CopyComplete
 C:\Users\Trilogo\Desktop\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.genruntimeconfig.cache
 C:\Users\Trilogo\Desktop\OPN-Tasks\Tester\obj\Debug\net6.0\ref\Tester.dll
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.csproj.AssemblyReference.cache
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.AssemblyInfoInputs.cache
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.AssemblyInfo.cs
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.csproj.CoreCompileInputs.cache
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.dll
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\refint\Tester.dll
+C:\Users\Trilogo\Desktop\Tasks\OPN-Tasks\OPN-Tasks\Tester\obj\Debug\net6.0\Tester.pdb

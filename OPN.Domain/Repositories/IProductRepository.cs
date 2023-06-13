@@ -2,5 +2,5 @@
 
 public interface IProductRepository
 {
-    Task<Product> GetByIdAsync(int productId);
+    Task<Product?> GetByIdAsync(int productId);
 }

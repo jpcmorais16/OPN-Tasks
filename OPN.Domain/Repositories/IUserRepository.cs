@@ -4,6 +4,7 @@ namespace OPN.Domain.Repositories;
 
 public interface IUserRepository
 {
-    Task UpdateUserAsync(LoggedUser user);
-    Task<LoggedUser> GetByIdnAsync(string loggedUserIDN);
+    void UpdateUser(LoggedUser user);
+    Task<LoggedUser?> GetByIdn(string loggedUserIDN);
+    Task<LoggedUser> CreateUser(string iDN, string userName);
 }
