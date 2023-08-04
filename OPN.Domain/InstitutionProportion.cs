@@ -4,7 +4,6 @@ namespace OPN.Domain;
 
 public class InstitutionProportion
 {
-    public int Id { get; set; }
     public int Value { get; set; }
     public EProportionStatus Status { get; set; }
     public int InstitutionId { get; set; }

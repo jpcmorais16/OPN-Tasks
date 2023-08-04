@@ -8,11 +8,12 @@ public abstract class OPNTask
     public ETaskStatus Status { get; set; } = ETaskStatus.InExecution;
     public DateTime CreationTime { get; set; }
     public DateTime? ConclusionTime { get; set; }
+    public (int, int) ProportionKey { get; set; }
 }
 
 public enum ETaskStatus
 {
     InExecution = 1,
-    Finished = 2,
+    Completed = 2,
     Cancelled = 3
 }

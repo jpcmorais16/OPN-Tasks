@@ -20,12 +20,16 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<LoggedUser?> GetByIdn(string loggedUserIDN)
+    public async Task<LoggedUser?> GetByIdn(string idn)
     {
-        //return await _context.LoggedUsers.FirstOrDefaultAsync(u => u.IDN == loggedUserIDN)!;
-
         var users = await _context.LoggedUsers.ToListAsync();
-        return users.FirstOrDefault(u => u.IDN == loggedUserIDN);
+
+        var user = users.FirstOrDefault(u => u.IDN == idn);
+
+        if (user == null)
+            throw new Exception("Usuário não encontrado");
+        
+        return user;
     }
 
     public void UpdateUser(LoggedUser user)

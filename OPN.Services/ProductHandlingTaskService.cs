@@ -2,7 +2,6 @@
 using OPN.Domain.Login;
 using OPN.Domain.Tasks;
 using OPN.Services.Interfaces;
-using OPN.Services.Requests;
 
 namespace OPN.Services;
 public class ProductHandlingTaskService: ITaskService
@@ -12,9 +11,9 @@ public class ProductHandlingTaskService: ITaskService
     {
         _unitOfWork = unitOfWork;
     }
-    public List<OPNProductHandlingTask> GetUserCompletedTasks(string userIdn)
+    public async Task<List<OPNProductHandlingTask>> GetUserCompletedTasks(string idn)
     {
-        throw new NotImplementedException();
+        return await _unitOfWork.ProductHandlingTasksRepository.GetUserCompletedTasks(idn);
     }
 
     public List<OPNProductHandlingTask> GetAllCompletedTasks()
@@ -22,7 +21,7 @@ public class ProductHandlingTaskService: ITaskService
         throw new NotImplementedException();
     }
 
-    public int GetUserNumberOfCompletedTasks(string userIdn)
+    public int GetUserNumberOfCompletedTasks(string idn)
     {
         throw new NotImplementedException();
     }
@@ -31,39 +30,37 @@ public class ProductHandlingTaskService: ITaskService
     {
         throw new NotImplementedException();
     }
-
-    void ITaskService.CompleteTask(string userIdn)
-    {
-        throw new NotImplementedException();
-    }
-
-    void ITaskService.CancelTask(string idn)
-    {
-        throw new NotImplementedException();
-    }
-
     public List<LoggedUser> GetRanking()
     {
         throw new NotImplementedException();
     }
 
-    public async Task CompleteTask(string userIdn)
+    public async Task<OPNProductHandlingTask?> GetUserCurrentTask(string idn)
     {
-        var user =  await _unitOfWork.UserRepository.GetByIdn(userIdn);
+        return await _unitOfWork.ProductHandlingTasksRepository.GetCurrentTask(idn);
+    }
+
+    public async Task CompleteTask(string idn)
+    {
+        var user =  await _unitOfWork.UserRepository.GetByIdn(idn);
 
         if (user == null)
             throw new Exception("Esse IDN não fez login!");
 
-        user.CompleteTask();
+        var proportionKey = user.CompleteTask();
+
+        var proportion = await _unitOfWork.ProportionsRepository.GetByKey(proportionKey);
+
+        proportion!.Status = EProportionStatus.Used;
 
         _unitOfWork.UserRepository.UpdateUser(user);
 
         await _unitOfWork.CommitAsync();
     }
 
-    public async Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(TaskRequest request)
+    public async Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(string idn)
     {
-        var user =   await _unitOfWork.UserRepository.GetByIdn(request.LoggedUserIDN);
+        var user =   await _unitOfWork.UserRepository.GetByIdn(idn);
 
         if (user == null)
             throw new Exception("Usuário não encontrado");
@@ -72,10 +69,11 @@ public class ProductHandlingTaskService: ITaskService
         
         var task = new OPNProductHandlingTask 
         {
-            UserIDN = request.LoggedUserIDN,
+            UserIDN = idn,
             Institution = proportion!.Institution,
             Product = proportion.Product,
-            CreationTime = DateTime.UtcNow 
+            CreationTime = DateTime.UtcNow,
+            ProportionKey = (proportion.ProductId, proportion.InstitutionId)
         };
 
         user.AddTask(task);
@@ -96,50 +94,12 @@ public class ProductHandlingTaskService: ITaskService
         if(user == null)
             throw new Exception("Este IDN não fez login!");
 
-        user.CancelTask();
+        var proportionKey = user.CancelTask();
+        
+        var proportion = await _unitOfWork.ProportionsRepository.GetByKey(proportionKey);
 
-        var task = await _unitOfWork.ProductHandlingTasksRepository.GetByIdAsync(user.TaskId);
-        task.Status = ETaskStatus.Cancelled;
+        proportion!.Status = EProportionStatus.NotUsed;
 
         await _unitOfWork.CommitAsync();
     }
-     
-    //public List<OPNProductHandlingTask> GetAllCompletedTasks()
-    //{
-    //    var tasks = _taskFetcher.FetchProductHandlingTasks();
-
-    //    return tasks.Where(t => t.ConclusionTime != null).ToList();
-    //}
-
-    //public List<OPNProductHandlingTask> GetUserCompletedTasks(string userIDN)
-    //{
-    //    var tasks = _taskFetcher.FetchProductHandlingTasks();
-
-    //    return tasks.Where(t => t.ConclusionTime != null && t.UserIDN.Equals(userIDN)).ToList();
-    //}
-
-    //public int GetUserNumberOfCompletedTasks(string userIDN)
-    //{
-    //    //var tasks = _taskFetcher.FetchProductHandlingTasks();
-
-    //    //return tasks.Where(t => t.ConclusionTime != null && t.UserIDN.Equals(userIDN)).ToList().Count;
-
-    //    var user = _userDataFetcher.FetchUser(userIDN);
-
-    //    return user.GetNumberOfCompletedTasks();
-    //}
-
-    //public int GetNumberOfCompletedTasks()
-    //{
-    //    var tasks = _taskFetcher.FetchProductHandlingTasks();
-
-    //    return tasks.Where(t => t.ConclusionTime != null).ToList().Count;
-    //}
-
-    //public List<LoggedUser> GetRanking()
-    //{
-    //    var users = _userDataFetcher.FetchUsers();
-
-    //    return users.OrderByDescending(u => u.CompletedTasks).ToList();
-    //}
 }
