@@ -16,15 +16,14 @@ public class LoginService: ILoginService
 
     public async Task<LoggedUser> Login(LoginRequest request)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdn(request.IDN);
+        var user = await _unitOfWork.UserRepository.Login(request.IDN);
 
         if(user == null)
         {
             user = await _unitOfWork.UserRepository.CreateUser(request.IDN, request.UserName);
+            await _unitOfWork.CommitAsync();
         }
-
-        await _unitOfWork.CommitAsync();
-
+        
         return user;
     }
 }

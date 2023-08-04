@@ -4,5 +4,5 @@ namespace OPN.Domain.Repositories;
 
 public interface ITasksRepository
 {
-    Task<OPNTask> GetByIdAsync(int id);
+    Task<OPNProductHandlingTask> GetByIdAsync(int id);
 }

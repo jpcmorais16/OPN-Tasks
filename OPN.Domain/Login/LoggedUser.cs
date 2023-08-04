@@ -1,22 +1,16 @@
 ﻿using OPN.Domain.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OPN.Domain.Login;
 public class LoggedUser
 {
-    public int Id { get; set; }
-    public string UserName { get; set; }
-    public string IDN { get; set; }
-    public OPNTask? Task { get; set; }
+    public string Name { get; set; }
+    public string Idn { get; set; }
+    public OPNProductHandlingTask? Task { get; set; }
     public int TaskId { get; set; }
     public int CompletedTasks { get; set; }
     public int CancelledTasks { get; set; }
 
-    public void AddTask(OPNTask task)
+    public void AddTask(OPNProductHandlingTask task)
     {
         if (Task != null)
             throw new Exception("Este usuário já possui uma task ativa!");
@@ -24,33 +18,37 @@ public class LoggedUser
         Task = task;
     }
 
-    public (int, int) CompleteTask()
+    public OPNProductHandlingTask CompleteTask()
     {
         if (Task == null)
             throw new Exception("Este usuário não possui uma task ativa!");
-
-        var task = Task;
 
         CompletedTasks += 1;
-
+        
+        var task = Task;
+        
         Task = null;
+        
+        task.ConclusionTime = DateTime.Now;
 
-        return task.ProportionKey;
+        return task;
     }
 
-    public (int, int) CancelTask()
+    public OPNProductHandlingTask CancelTask()
     {
         if (Task == null)
             throw new Exception("Este usuário não possui uma task ativa!");
+        
+        CancelledTasks += 1;
 
         var task = Task;
 
         task.Status = ETaskStatus.Cancelled;
 
-        CancelledTasks += 1;
-
         Task = null;
 
-        return task.ProportionKey;
+        task.CancelTime = DateTime.UtcNow;
+
+        return task;
     }
 }
