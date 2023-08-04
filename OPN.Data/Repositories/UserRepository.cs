@@ -13,27 +13,31 @@ public class UserRepository : IUserRepository
     }
     public async Task<LoggedUser> CreateUser(string idn, string userName)
     {
-        var user = new LoggedUser() { IDN = idn, UserName = userName };
+        var user = new LoggedUser() { Idn = idn, Name = userName };
 
         await _context.LoggedUsers.AddAsync(user);
 
         return user;
     }
 
-    public async Task<LoggedUser?> GetByIdn(string idn)
+    public async Task<List<LoggedUser>> GetRanking()
     {
-        var users = await _context.LoggedUsers.ToListAsync();
+        return await _context.LoggedUsers.OrderByDescending(p => p.CompletedTasks).ToListAsync();
+    }
 
-        var user = users.FirstOrDefault(u => u.IDN == idn);
+    public async Task<LoggedUser?> Login(string idn)
+    {
+        return await _context.LoggedUsers.FirstOrDefaultAsync(p => p.Idn == idn);
+    }
 
+    public async Task<LoggedUser> GetByIdn(string idn)
+    {
+        var user = await _context.LoggedUsers.Include(p => p.Task)
+            .FirstOrDefaultAsync(u => u.Idn == idn);
+        
         if (user == null)
             throw new Exception("Usuário não encontrado");
         
         return user;
-    }
-
-    public void UpdateUser(LoggedUser user)
-    {
-        _context.LoggedUsers.Update(user);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OPN.Domain;
 using OPN.Services.Interfaces;
 using OPN.Services.Requests;
 
@@ -9,9 +10,11 @@ namespace OPN.Api.Controllers
     public class TaskController : Controller
     {
         private readonly ITaskService _taskService;
-        public TaskController(ITaskService taskService)
+        private readonly IUnitOfWork _unitOfWork;
+        public TaskController(ITaskService taskService, IUnitOfWork unitOfWork)
         {
             _taskService = taskService;
+            _unitOfWork = unitOfWork;
         }
         
         [HttpGet("CreateRandomTask")]
@@ -30,31 +33,25 @@ namespace OPN.Api.Controllers
         }
 
         [HttpGet("GetUserCompletedTasks")]
-        public IActionResult GetUserCompletedTasks([FromQuery] string idn)
+        public async Task<IActionResult> GetUserCompletedTasks([FromQuery] string idn)
         {
-            var result = _taskService.GetUserCompletedTasks(idn);
-            return Ok(result);
-        }
-
-        [HttpGet("NumberOfCompletedTasksByUser")]
-        public IActionResult GetUserNumberOfCompletedTasks([FromQuery] string idn)
-        {
-            var result = _taskService.GetUserNumberOfCompletedTasks(idn);
+            var result = await _unitOfWork.ProductHandlingTasksRepository.GetUserCompletedTasks(idn);
+            
             return Ok(result);
         }
 
         [HttpGet("GetAllCompletedTasks")]
-        public IActionResult GetAllCompletedTasks()
+        public async Task<IActionResult> GetAllCompletedTasks()
         {
-            var result = _taskService.GetAllCompletedTasks();
+            var result = await _unitOfWork.ProductHandlingTasksRepository.GetAllCompletedTasks();
 
             return Ok(result);
         }
 
         [HttpGet("GetUserCurrentTask")]
-        public IActionResult GetUserCurrentTask(string idn)
+        public async Task<IActionResult> GetUserCurrentTask(string idn)
         {
-            var result = _taskService.GetUserCurrentTask(idn);
+            var result =  await _unitOfWork.ProductHandlingTasksRepository.GetCurrentTask(idn);
 
             return Ok(result);
         }
@@ -67,9 +64,11 @@ namespace OPN.Api.Controllers
         }
 
         [HttpGet("GetRanking")]
-        public IActionResult GetRanking()
+        public async Task<IActionResult> GetRanking()
         {
-            return Ok(_taskService.GetRanking());
+            var result = await _unitOfWork.UserRepository.GetRanking();
+            
+            return Ok(result);
         }
     }
 }

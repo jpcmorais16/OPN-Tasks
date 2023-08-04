@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OPN.Domain.Login;
 using OPN.Domain.Repositories;
 using OPN.Domain.Tasks;
 
@@ -27,13 +28,13 @@ public class ProductHandlingTasksRepository: IProductHandlingTasksRepository
         return await _context.ProductHandlingTasks.Where(t => t.UserIDN == idn && t.Status == ETaskStatus.Completed).ToListAsync();
     }
 
-    public async Task<OPNTask> GetByIdAsync(int id)
+    public async Task<List<OPNProductHandlingTask>> GetAllCompletedTasks()
+    {
+        return await _context.ProductHandlingTasks.Where(p => p.Status == ETaskStatus.Completed)
+            .ToListAsync();
+    }
+    public async Task<OPNProductHandlingTask> GetByIdAsync(int id)
     {
         return await _context.ProductHandlingTasks.FirstAsync(t => t.Id == id);
-    }
-
-    public Task DeleteAsync(OPNTask task)
-    {
-        throw new NotImplementedException();
     }
 }

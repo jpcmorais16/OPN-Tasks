@@ -10,26 +10,13 @@ public class ApplicationContext : DbContext
 {
     private readonly string _connectionString;
 
-    public ApplicationContext()
-    {
-            
-    }
     public ApplicationContext(string connectionString)
     {
         _connectionString = connectionString;
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<LoggedUser>().HasOne(s => s.Task)
-            .WithOne()
-            .HasForeignKey<OPNTask>(t => t.UserId);
-
-        modelBuilder.Entity<OPNProductHandlingTask>().HasOne(t => t.Proportion)
-            .WithOne();
-
-        modelBuilder.Entity<Institution>().HasMany(i => i.Products)
-            .WithMany(p => p.Institutions)
-            .UsingEntity<InstitutionProportion>();
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

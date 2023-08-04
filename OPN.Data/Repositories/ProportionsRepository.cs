@@ -11,7 +11,7 @@ public class ProportionsRepository: IProportionsRepository
     {
         _context = context;
     }
-    public async Task<InstitutionProportion?> GetRandomAvailableProportionAsync()
+    public async Task<InstitutionProportion> GetRandomAvailableProportionAsync()
     {
         var availableProportions = _context.InstitutionProportions.Where(p => p.Status == EProportionStatus.NotUsed)
             .Include(p => p.Institution)
@@ -19,18 +19,19 @@ public class ProportionsRepository: IProportionsRepository
         
         var proportion = await availableProportions
                                     .FirstOrDefaultAsync();
-        return proportion;
+        return proportion!;
     }
 
-    public Task<InstitutionProportion?> GetByKey((int, int) key)
+    public Task<InstitutionProportion> GetByKey((int, int) key)
     {
-        var proportion =
-            _context.InstitutionProportions.FirstOrDefaultAsync(
+        var proportion = _context.InstitutionProportions
+                .Include(p => p.Product)
+                .FirstOrDefaultAsync(
                 p => p.ProductId == key.Item1 && p.InstitutionId == key.Item2);
 
         if (proportion == null)
             throw new Exception("Proporção não encontrada");
 
-        return proportion;
+        return proportion!;
     }
 }

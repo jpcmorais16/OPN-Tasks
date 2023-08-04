@@ -1,5 +1,4 @@
 ﻿using OPN.Domain;
-using OPN.Domain.Login;
 using OPN.Domain.Tasks;
 using OPN.Services.Interfaces;
 
@@ -11,53 +10,7 @@ public class ProductHandlingTaskService: ITaskService
     {
         _unitOfWork = unitOfWork;
     }
-    public async Task<List<OPNProductHandlingTask>> GetUserCompletedTasks(string idn)
-    {
-        return await _unitOfWork.ProductHandlingTasksRepository.GetUserCompletedTasks(idn);
-    }
-
-    public List<OPNProductHandlingTask> GetAllCompletedTasks()
-    {
-        throw new NotImplementedException();
-    }
-
-    public int GetUserNumberOfCompletedTasks(string idn)
-    {
-        throw new NotImplementedException();
-    }
-
-    public int GetNumberOfCompletedTasks()
-    {
-        throw new NotImplementedException();
-    }
-    public List<LoggedUser> GetRanking()
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<OPNProductHandlingTask?> GetUserCurrentTask(string idn)
-    {
-        return await _unitOfWork.ProductHandlingTasksRepository.GetCurrentTask(idn);
-    }
-
-    public async Task CompleteTask(string idn)
-    {
-        var user =  await _unitOfWork.UserRepository.GetByIdn(idn);
-
-        if (user == null)
-            throw new Exception("Esse IDN não fez login!");
-
-        var proportionKey = user.CompleteTask();
-
-        var proportion = await _unitOfWork.ProportionsRepository.GetByKey(proportionKey);
-
-        proportion!.Status = EProportionStatus.Used;
-
-        _unitOfWork.UserRepository.UpdateUser(user);
-
-        await _unitOfWork.CommitAsync();
-    }
-
+    
     public async Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(string idn)
     {
         var user =   await _unitOfWork.UserRepository.GetByIdn(idn);
@@ -66,7 +19,7 @@ public class ProductHandlingTaskService: ITaskService
             throw new Exception("Usuário não encontrado");
 
         var proportion =  await _unitOfWork.ProportionsRepository.GetRandomAvailableProportionAsync();
-        
+
         var task = new OPNProductHandlingTask 
         {
             UserIDN = idn,
@@ -86,7 +39,26 @@ public class ProductHandlingTaskService: ITaskService
 
         return task;
     }
+    
+    public async Task CompleteTask(string idn)
+    {
+        var user =  await _unitOfWork.UserRepository.GetByIdn(idn);
 
+        if (user == null)
+            throw new Exception("Esse IDN não fez login!");
+
+        var task = user.CompleteTask();
+
+        var proportion = await _unitOfWork.ProportionsRepository.GetByKey((task.ProductId, task.InstitutionId));
+
+        proportion.Status = EProportionStatus.Used;
+        
+        var product = proportion.Product;
+        product!.CurrentAmount -= proportion.Value * product.InitialAmount;
+
+        await _unitOfWork.CommitAsync();
+    }
+    
     public async Task CancelTask(string idn)
     {
         var user = await _unitOfWork.UserRepository.GetByIdn(idn);
@@ -94,11 +66,12 @@ public class ProductHandlingTaskService: ITaskService
         if(user == null)
             throw new Exception("Este IDN não fez login!");
 
-        var proportionKey = user.CancelTask();
-        
-        var proportion = await _unitOfWork.ProportionsRepository.GetByKey(proportionKey);
+        var task = user.CancelTask();
+
+        var proportion = await _unitOfWork.ProportionsRepository.GetByKey((task.ProductId, task.InstitutionId));
 
         proportion!.Status = EProportionStatus.NotUsed;
+        proportion!.Product!.CurrentAmount += task.Amount;
 
         await _unitOfWork.CommitAsync();
     }

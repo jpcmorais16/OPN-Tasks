@@ -10,6 +10,7 @@ public class InstitutionProportion
     public Institution? Institution { get; set; }
     public int ProductId  { get; set; }
     public Product? Product { get; set; }
+    public OPNProductHandlingTask Task { get; set;}
 
 
     public InstitutionProportion()
