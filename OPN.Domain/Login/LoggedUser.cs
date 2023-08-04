@@ -24,23 +24,33 @@ public class LoggedUser
         Task = task;
     }
 
-    public void CompleteTask()
+    public (int, int) CompleteTask()
     {
         if (Task == null)
             throw new Exception("Este usuário não possui uma task ativa!");
+
+        var task = Task;
 
         CompletedTasks += 1;
 
         Task = null;
+
+        return task.ProportionKey;
     }
 
-    public void CancelTask()
+    public (int, int) CancelTask()
     {
         if (Task == null)
             throw new Exception("Este usuário não possui uma task ativa!");
 
+        var task = Task;
+
+        task.Status = ETaskStatus.Cancelled;
+
         CancelledTasks += 1;
 
         Task = null;
+
+        return task.ProportionKey;
     }
 }

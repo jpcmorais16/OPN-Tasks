@@ -4,7 +4,7 @@ using OPN.Services.Requests;
 
 namespace OPN.Api.Controllers
 {
-    [Route("/api/Task")]
+    [Route("/api/Tasks")]
     [ApiController]
     public class TaskController : Controller
     {
@@ -15,31 +15,31 @@ namespace OPN.Api.Controllers
         }
         
         [HttpGet("CreateRandomTask")]
-        public async Task<IActionResult> CreateRandomTask([FromQuery] string IDN)
+        public async Task<IActionResult> CreateRandomTask([FromQuery] string idn)
         {
-            var result = await _taskService.CreateRandomProductHandlingTask(new TaskRequest { LoggedUserIDN = IDN});
+            var result = await _taskService.CreateRandomProductHandlingTask(idn);
 
             return Ok(result);
         }
 
         [HttpPost("CompleteTask")]
-        public IActionResult CompleteTask([FromQuery] string IDN)
+        public IActionResult CompleteTask([FromQuery] string idn)
         {
-            _taskService.CompleteTask(IDN);
+            _taskService.CompleteTask(idn);
             return Ok();
         }
 
         [HttpGet("GetUserCompletedTasks")]
-        public IActionResult GetUserCompletedTasks([FromQuery] string IDN)
+        public IActionResult GetUserCompletedTasks([FromQuery] string idn)
         {
-            var result = _taskService.GetUserCompletedTasks(IDN);
+            var result = _taskService.GetUserCompletedTasks(idn);
             return Ok(result);
         }
 
         [HttpGet("NumberOfCompletedTasksByUser")]
-        public IActionResult GetUserNumberOfCompletedTasks([FromQuery] string IDN)
+        public IActionResult GetUserNumberOfCompletedTasks([FromQuery] string idn)
         {
-            var result = _taskService.GetUserNumberOfCompletedTasks(IDN);
+            var result = _taskService.GetUserNumberOfCompletedTasks(idn);
             return Ok(result);
         }
 
@@ -51,10 +51,18 @@ namespace OPN.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut("CancelTask")]
-        public IActionResult CancelTask([FromQuery] string IDN)
+        [HttpGet("GetUserCurrentTask")]
+        public IActionResult GetUserCurrentTask(string idn)
         {
-            _taskService.CancelTask(IDN);
+            var result = _taskService.GetUserCurrentTask(idn);
+
+            return Ok(result);
+        }
+
+        [HttpPut("CancelTask")]
+        public IActionResult CancelTask([FromQuery] string idn)
+        {
+            _taskService.CancelTask(idn);
             return Ok();
         }
 

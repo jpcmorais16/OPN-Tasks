@@ -21,4 +21,16 @@ public class ProportionsRepository: IProportionsRepository
                                     .FirstOrDefaultAsync();
         return proportion;
     }
+
+    public Task<InstitutionProportion?> GetByKey((int, int) key)
+    {
+        var proportion =
+            _context.InstitutionProportions.FirstOrDefaultAsync(
+                p => p.ProductId == key.Item1 && p.InstitutionId == key.Item2);
+
+        if (proportion == null)
+            throw new Exception("Proporção não encontrada");
+
+        return proportion;
+    }
 }

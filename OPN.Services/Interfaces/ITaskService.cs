@@ -11,13 +11,14 @@ namespace OPN.Services.Interfaces
 {
     public interface ITaskService
     {
-        public Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(TaskRequest request);
-        public List<OPNProductHandlingTask> GetUserCompletedTasks(string userIDN);
-        public List<OPNProductHandlingTask> GetAllCompletedTasks();
-        public int GetUserNumberOfCompletedTasks(string userIDN);
-        public int GetNumberOfCompletedTasks();
-        public void CompleteTask(string userIDN);
-        void CancelTask(string iDN);
-        public List<LoggedUser> GetRanking();
+        Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(string idn);
+        Task<List<OPNProductHandlingTask>> GetUserCompletedTasks(string idn);
+        List<OPNProductHandlingTask> GetAllCompletedTasks();
+        int GetUserNumberOfCompletedTasks(string idn);
+        int GetNumberOfCompletedTasks();
+        Task CompleteTask(string idn);
+        Task CancelTask(string idn);
+        List<LoggedUser> GetRanking();
+        Task<OPNProductHandlingTask?> GetUserCurrentTask(string idn);
     }
 }
