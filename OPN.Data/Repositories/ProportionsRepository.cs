@@ -19,6 +19,10 @@ public class ProportionsRepository: IProportionsRepository
         
         var proportion = await availableProportions
                                     .FirstOrDefaultAsync();
+
+        if (proportion == null)
+            throw new Exception("Não há mais tasks!");
+        
         return proportion!;
     }
 

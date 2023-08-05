@@ -26,7 +26,8 @@ public class ProductHandlingTaskService: ITaskService
             Institution = proportion!.Institution,
             Product = proportion.Product,
             CreationTime = DateTime.UtcNow,
-            ProportionKey = (proportion.ProductId, proportion.InstitutionId)
+            Amount = (int) proportion.Value * proportion.Product!.InitialAmount
+            //ProportionKey = (proportion.ProductId, proportion.InstitutionId)
         };
 
         user.AddTask(task);
@@ -54,7 +55,7 @@ public class ProductHandlingTaskService: ITaskService
         proportion.Status = EProportionStatus.Used;
         
         var product = proportion.Product;
-        product!.CurrentAmount -= proportion.Value * product.InitialAmount;
+        product!.CurrentAmount -= (int) proportion.Value * product.InitialAmount;
 
         await _unitOfWork.CommitAsync();
     }

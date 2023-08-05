@@ -6,7 +6,7 @@ public class LoggedUser
     public string Name { get; set; }
     public string Idn { get; set; }
     public OPNProductHandlingTask? Task { get; set; }
-    public int TaskId { get; set; }
+    public int? TaskId { get; set; }
     public int CompletedTasks { get; set; }
     public int CancelledTasks { get; set; }
 
@@ -29,7 +29,7 @@ public class LoggedUser
         
         Task = null;
         
-        task.ConclusionTime = DateTime.Now;
+        task.ConclusionTime = DateTime.UtcNow;
 
         return task;
     }

@@ -15,5 +15,13 @@ public class ProportionMapping: IEntityTypeConfiguration<InstitutionProportion>
         builder.Property(p => p.InstitutionId).HasColumnName("Instituicao_id");
         builder.Property(p => p.Value).HasColumnName("Valor");
         builder.Property(p => p.Status).HasColumnName("Status");
+
+        builder.HasOne(p => p.Product)
+            .WithMany()
+            .HasForeignKey(p => p.ProductId);
+        
+        builder.HasOne(p => p.Institution)
+            .WithMany()
+            .HasForeignKey(p => p.InstitutionId);
     }
 }

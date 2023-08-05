@@ -10,10 +10,4 @@ public class Institution
     {
             
     }
-
-    public Institution(int id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
 }

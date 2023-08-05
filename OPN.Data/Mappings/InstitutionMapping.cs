@@ -12,6 +12,6 @@ public class InstitutionMapping: IEntityTypeConfiguration<Institution>
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id).HasColumnName("Codigo");
-        builder.Property(p => p.Name).HasColumnName("Name");
+        builder.Property(p => p.Name).HasColumnName("Nome");
     }
 }

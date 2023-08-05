@@ -18,12 +18,11 @@ public class LoginService: ILoginService
     {
         var user = await _unitOfWork.UserRepository.Login(request.IDN);
 
-        if(user == null)
-        {
-            user = await _unitOfWork.UserRepository.CreateUser(request.IDN, request.UserName);
-            await _unitOfWork.CommitAsync();
-        }
+        if (user != null) return user;
         
+        user = await _unitOfWork.UserRepository.CreateUser(request.IDN, request.UserName);
+        await _unitOfWork.CommitAsync();
+
         return user;
     }
 }

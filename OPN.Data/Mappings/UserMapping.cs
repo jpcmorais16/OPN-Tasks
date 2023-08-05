@@ -18,6 +18,7 @@ public class UserMapping: IEntityTypeConfiguration<LoggedUser>
         builder.Property(p => p.TaskId).HasColumnName("Task_id");
 
         builder.HasOne(p => p.Task)
-            .WithOne();
+            .WithOne()
+            .HasForeignKey<LoggedUser>(p => p.TaskId);
     }
 }
