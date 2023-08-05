@@ -10,12 +10,10 @@ public class OPNProductHandlingTask
     public DateTime CreationTime { get; set; }
     public DateTime? ConclusionTime { get; set; }
     public DateTime? CancelTime { get; set; }
-    public (int, int) ProportionKey { get; set; }
     public int ProductId { get; set; }
     public Product? Product { get; init; }
     public int InstitutionId { get; set; }
     public Institution? Institution { get; init; }
-    public InstitutionProportion? Proportion { get; init; }
 }
 
 public enum ETaskStatus

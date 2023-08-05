@@ -4,14 +4,12 @@ namespace OPN.Domain;
 
 public class InstitutionProportion
 {
-    public int Value { get; set; }
+    public float Value { get; set; }
     public EProportionStatus Status { get; set; }
     public int InstitutionId { get; set; }
     public Institution? Institution { get; set; }
     public int ProductId  { get; set; }
     public Product? Product { get; set; }
-    public OPNProductHandlingTask Task { get; set;}
-
 
     public InstitutionProportion()
     {

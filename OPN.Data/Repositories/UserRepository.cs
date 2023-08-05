@@ -32,8 +32,9 @@ public class UserRepository : IUserRepository
 
     public async Task<LoggedUser> GetByIdn(string idn)
     {
-        var user = await _context.LoggedUsers.Include(p => p.Task)
-            .FirstOrDefaultAsync(u => u.Idn == idn);
+        var users = _context.LoggedUsers.Include(p => p.Task);
+        
+        var user = await users.FirstOrDefaultAsync(u => u.Idn == idn);
         
         if (user == null)
             throw new Exception("Usuário não encontrado");
