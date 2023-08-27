@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using OPN.Domain;
 using OPN.Domain.Login;
 using OPN.Domain.Tasks;
@@ -21,7 +22,7 @@ public class ApplicationContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySql(_connectionString, ServerVersion.Parse("8.0.31"));
+        optionsBuilder.UseMySql(_connectionString, ServerVersion.Parse("8.0.33"));
     }
 
     public DbSet<LoggedUser> LoggedUsers => Set<LoggedUser>();
