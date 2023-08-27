@@ -8,7 +8,7 @@ public class InstitutionMapping: IEntityTypeConfiguration<Institution>
 {
     public void Configure(EntityTypeBuilder<Institution> builder)
     {
-        builder.ToTable("Instituicao");
+        builder.ToTable("instituicao");
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id).HasColumnName("Codigo");

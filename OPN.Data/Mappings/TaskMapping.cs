@@ -8,7 +8,7 @@ public class TaskMapping: IEntityTypeConfiguration<OPNProductHandlingTask>
 {
     public void Configure(EntityTypeBuilder<OPNProductHandlingTask> builder)
     {
-        builder.ToTable("Task");
+        builder.ToTable("task");
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id).HasColumnName("Codigo");

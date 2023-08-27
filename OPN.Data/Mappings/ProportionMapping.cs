@@ -8,7 +8,7 @@ public class ProportionMapping: IEntityTypeConfiguration<InstitutionProportion>
 {
     public void Configure(EntityTypeBuilder<InstitutionProportion> builder)
     {
-        builder.ToTable("Proporcao");
+        builder.ToTable("proporcao");
         builder.HasKey(p => new { p.ProductId, p.InstitutionId });
 
         builder.Property(p => p.ProductId).HasColumnName("Produto_id");

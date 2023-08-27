@@ -8,7 +8,7 @@ public class UserMapping: IEntityTypeConfiguration<LoggedUser>
 {
     public void Configure(EntityTypeBuilder<LoggedUser> builder)
     {
-        builder.ToTable("Usuario");
+        builder.ToTable("usuario");
         builder.HasKey(u => u.Idn);
 
         builder.Property(p => p.Idn).HasColumnName("Idn");
