@@ -13,8 +13,7 @@ public class ApplicationContext : DbContext
 
     public ApplicationContext(string connectionString)
     {
-        _connectionString =
-            "server=awseb-e-ktqhrabcrm-stack-awsebrdsdatabase-h7kxlzrns83h.cngjmkw8rlla.us-east-1.rds.amazonaws.com;database=tasks;uid=tasks;pwd=12345678";
+        _connectionString = connectionString;
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
