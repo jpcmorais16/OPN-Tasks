@@ -26,6 +26,8 @@ public class LoggedUser
         CompletedTasks += 1;
         
         var task = Task;
+
+        task.Status = ETaskStatus.Completed;
         
         Task = null;
         
