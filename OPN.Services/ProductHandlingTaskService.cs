@@ -18,6 +18,9 @@ public class ProductHandlingTaskService: ITaskService
         if (user == null)
             throw new Exception("Usuário não encontrado");
 
+        if (user.Task != null)
+            return user.Task;
+
         var proportion =  await _unitOfWork.ProportionsRepository.GetRandomAvailableProportionAsync();
 
         var task = new OPNProductHandlingTask 
