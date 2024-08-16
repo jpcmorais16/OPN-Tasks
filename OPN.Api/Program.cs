@@ -12,11 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
+
 builder.Services.AddSingleton(provider =>
 {
     var configuration = provider.GetService<IConfiguration>();
     return new ApplicationContext(configuration!.GetConnectionString("DefaultConnection"));
 });
+
 builder.Services.AddScoped<ITaskService, ProductHandlingTaskService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IProductHandlingTasksRepository, ProductHandlingTasksRepository>();
@@ -46,7 +49,7 @@ if (true)
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseDeveloperExceptionPage();
 

@@ -4,7 +4,7 @@ namespace OPN.Domain.Tasks;
 public class OPNProductHandlingTask
 {
     public int Id { get; set; }
-    public string UserIDN { get; set; }
+    public string? UserIdn { get; set; }
     public int Amount { get; set; }
     public ETaskStatus Status { get; set; } = ETaskStatus.InExecution;
     public DateTime CreationTime { get; set; }
@@ -18,6 +18,7 @@ public class OPNProductHandlingTask
 
 public enum ETaskStatus
 {
+    Waiting = 0,
     InExecution = 1,
     Completed = 2,
     Cancelled = 3

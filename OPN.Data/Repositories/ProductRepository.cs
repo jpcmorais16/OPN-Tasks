@@ -19,4 +19,9 @@ public class ProductRepository: IProductRepository
 
         return product;
     }
+
+    public async Task Reset()
+    {
+        await _context.Products.ForEachAsync(p => p.CurrentAmount = p.InitialAmount);
+    }
 }

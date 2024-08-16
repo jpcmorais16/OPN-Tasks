@@ -14,7 +14,7 @@ public class TaskMapping: IEntityTypeConfiguration<OPNProductHandlingTask>
         builder.Property(p => p.Id).HasColumnName("Codigo");
         builder.Property(p => p.ProductId).HasColumnName("Produto_id");
         builder.Property(p => p.InstitutionId).HasColumnName("Instituicao_id");
-        builder.Property(p => p.UserIDN).HasColumnName("Usuario_idn");
+        builder.Property(p => p.UserIdn).HasColumnName("Usuario_idn");
         builder.Property(p => p.Amount).HasColumnName("Quantidade");
         builder.Property(p => p.Status).HasColumnName("Status");
         builder.Property(p => p.CreationTime).HasColumnName("MomentoCriacao");

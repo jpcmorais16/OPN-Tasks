@@ -1,4 +1,5 @@
-﻿using OPN.Domain;
+﻿using System.Net;
+using OPN.Domain;
 using OPN.Domain.Tasks;
 using OPN.Services.Interfaces;
 
@@ -10,33 +11,24 @@ public class ProductHandlingTaskService: ITaskService
     {
         _unitOfWork = unitOfWork;
     }
-    
-    public async Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(string idn)
+
+    public async Task<OPNProductHandlingTask> GetTaskToUser(string idn)
     {
-        var user =   await _unitOfWork.UserRepository.GetByIdn(idn);
+        var user =  await _unitOfWork.UserRepository.GetByIdn(idn);
 
         if (user == null)
             throw new Exception("Usuário não encontrado");
 
         if (user.Task != null)
-            return user.Task;
+            return (await _unitOfWork.ProductHandlingTasksRepository.GetCurrentTask(idn))!;
 
-        var proportion =  await _unitOfWork.ProportionsRepository.GetRandomAvailableProportionAsync();
-
-        var task = new OPNProductHandlingTask 
-        {
-            UserIDN = idn,
-            Institution = proportion!.Institution,
-            Product = proportion.Product,
-            CreationTime = DateTime.UtcNow,
-            Amount = (int) proportion.Value * proportion.Product!.InitialAmount / 100
-        };
-
+        var task = await _unitOfWork.ProductHandlingTasksRepository.GetRandomTask();
+            
         user.AddTask(task);
 
-        proportion.Status = EProportionStatus.InUse;
+        task.UserIdn = user.Idn;
 
-        await _unitOfWork.ProductHandlingTasksRepository.RegisterTaskAsync(task);
+        task.Status = ETaskStatus.InExecution;
 
         await _unitOfWork.CommitAsync();
 
@@ -54,10 +46,8 @@ public class ProductHandlingTaskService: ITaskService
 
         var proportion = await _unitOfWork.ProportionsRepository.GetByKey((task.ProductId, task.InstitutionId));
 
-        proportion.Status = EProportionStatus.Used;
-        
         var product = proportion.Product;
-        product!.CurrentAmount -= (int) proportion.Value * product.InitialAmount / 100;
+        product!.CurrentAmount -= (int) (proportion.Value * product.InitialAmount / 100);
 
         await _unitOfWork.CommitAsync();
     }
@@ -68,14 +58,72 @@ public class ProductHandlingTaskService: ITaskService
 
         if(user == null)
             throw new Exception("Este IDN não fez login!");
-
-        var task = user.CancelTask();
-
-        var proportion = await _unitOfWork.ProportionsRepository.GetByKey((task.ProductId, task.InstitutionId));
-
-        proportion!.Status = EProportionStatus.NotUsed;
-        proportion!.Product!.CurrentAmount += task.Amount;
+        
+        user.CancelTask();
 
         await _unitOfWork.CommitAsync();
+    }
+
+    public async Task Reset()
+    {
+        await _unitOfWork.ProductRepository.Reset();
+
+        await _unitOfWork.UserRepository.Reset();
+
+        await _unitOfWork.ProductHandlingTasksRepository.Reset();
+
+        await CreateAllTasksAsync();
+        
+        await _unitOfWork.CommitAsync();
+    }
+
+    private async Task CreateAllTasksAsync()
+    {
+        var proportions = await _unitOfWork.ProportionsRepository.GetProportions();
+
+        var taskList = new List<OPNProductHandlingTask>();
+
+        var taskId = 1;
+        
+        proportions.ForEach(proportion =>
+        {
+            var amount = (int)proportion.Value * proportion.Product!.InitialAmount / 100;
+
+            if (amount == 0)
+                return;
+
+            while (amount > 20)
+            {
+                var otherTask = new OPNProductHandlingTask
+                {
+                    Id = taskId,
+                    InstitutionId = proportion!.InstitutionId,
+                    ProductId = proportion.ProductId,
+                    CreationTime = DateTime.UtcNow,
+                    Amount = 20,
+                    Status = ETaskStatus.Waiting
+                };
+                    
+                taskList.Add(otherTask);
+
+                amount -= 20;
+                taskId++;
+            }
+            
+            var task = new OPNProductHandlingTask 
+            {
+                Id = taskId,
+                InstitutionId = proportion!.InstitutionId,
+                ProductId = proportion.ProductId,
+                CreationTime = DateTime.UtcNow,
+                Amount = amount,
+                Status = ETaskStatus.Waiting
+            };
+
+            taskList.Add(task);
+            taskId++;
+        });
+
+        await _unitOfWork.ProductHandlingTasksRepository.RegisterRangeAsync(taskList);
     }
 }

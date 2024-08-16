@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
 
     public async Task<List<LoggedUser>> GetRanking()
     {
-        return await _context.LoggedUsers.OrderByDescending(p => p.CompletedTasks).ToListAsync();
+        return await _context.LoggedUsers.Where(u => u.CompletedTasks > 0).OrderByDescending(p => p.CompletedTasks).ToListAsync();
     }
 
     public async Task<LoggedUser?> Login(string idn)
@@ -30,10 +30,20 @@ public class UserRepository : IUserRepository
         return await _context.LoggedUsers.FirstOrDefaultAsync(p => p.Idn == idn);
     }
 
+    public async Task Reset()
+    {
+        await _context.LoggedUsers.ForEachAsync(u =>
+        {
+            u.CancelledTasks = 0;
+            u.CompletedTasks = 0;
+            u.TaskId = null;
+        });
+    }
+
     public async Task<LoggedUser> GetByIdn(string idn)
     {
         var users = _context.LoggedUsers.Include(p => p.Task);
-        
+
         var user = await users.FirstOrDefaultAsync(u => u.Idn == idn);
         
         if (user == null)

@@ -45,11 +45,12 @@ public class LoggedUser
 
         var task = Task;
 
-        task.Status = ETaskStatus.Cancelled;
+        task.Status = ETaskStatus.Waiting;
 
         Task = null;
 
         task.CancelTime = DateTime.UtcNow;
+        task.UserIdn = null;
 
         return task;
     }

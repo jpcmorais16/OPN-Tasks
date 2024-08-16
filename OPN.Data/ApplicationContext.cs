@@ -13,7 +13,6 @@ public class ApplicationContext : DbContext
 
     public ApplicationContext(string connectionString)
     {
-        
         _connectionString = connectionString;
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -11,8 +11,9 @@ namespace OPN.Services.Interfaces
 {
     public interface ITaskService
     {
-        Task<OPNProductHandlingTask> CreateRandomProductHandlingTask(string idn);
         Task CompleteTask(string idn);
         Task CancelTask(string idn);
+        Task Reset();
+        Task<OPNProductHandlingTask> GetTaskToUser(string idn);
     }
 }

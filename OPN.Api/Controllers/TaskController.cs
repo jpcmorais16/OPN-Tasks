@@ -20,7 +20,7 @@ namespace OPN.Api.Controllers
         [HttpGet("CreateRandomTask")]
         public async Task<IActionResult> CreateRandomTask([FromQuery] string idn)
         {
-            var result = await _taskService.CreateRandomProductHandlingTask(idn);
+            var result = await _taskService.GetTaskToUser(idn);
 
             return Ok(result);
         }
@@ -68,6 +68,30 @@ namespace OPN.Api.Controllers
         {
             var result = await _unitOfWork.UserRepository.GetRanking();
             
+            return Ok(result);
+        }
+
+        [HttpGet("GetActiveTasks")]
+        public async Task<IActionResult> GetActiveTasks()
+        {
+            var result = await _unitOfWork.ProductHandlingTasksRepository.GetActiveTasks();
+
+            return Ok(result);
+        }
+
+        [HttpGet("Reset")]
+        public async Task<IActionResult> ResetAllTasks()
+        {
+            await _taskService.Reset();
+
+            return Ok();
+        }
+        
+        [HttpGet("GetWaitingTasks")]
+        public async Task<IActionResult> GetWaitingTasks()
+        {
+            var result = await _unitOfWork.ProductHandlingTasksRepository.GetWaitingTasks();
+
             return Ok(result);
         }
     }

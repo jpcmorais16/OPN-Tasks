@@ -3,4 +3,5 @@
 public interface IProductRepository
 {
     Task<Product?> GetByIdAsync(int productId);
+    Task Reset();
 }
