@@ -64,7 +64,12 @@ public class ProductHandlingTasksRepository: IProductHandlingTasksRepository
 
         var index = new Random().Next(1, _totalTasks.Value);
 
-        return (await _context.ProductHandlingTasks.FirstOrDefaultAsync(t => t.Status == ETaskStatus.Waiting && t.Id == index))!;
+        var result = await _context.ProductHandlingTasks.FirstOrDefaultAsync(t => t.Status == ETaskStatus.Waiting && t.Id == index);
+
+        if (result is null)
+            throw new Exception("Todas as tarefas já foram concluídas!");
+
+        return result;
     }
 
     public async Task RegisterRangeAsync(List<OPNProductHandlingTask> tasks)

@@ -85,10 +85,18 @@ public class ProductHandlingTaskService: ITaskService
 
         var taskId = 1;
         
+        var institutionAmount = proportions.Select(p => p.Institution).Distinct().Count();
+        var counter = 0;
+        var currentProductAmount = proportions.First().Product!.InitialAmount;
+        
         proportions.ForEach(proportion =>
         {
-            var amount = (int)proportion.Value * proportion.Product!.InitialAmount / 100;
 
+            int amount = 0;
+            
+            (currentProductAmount, counter, amount) =
+                CalculateTaskProductAmount(proportion, counter, currentProductAmount, institutionAmount);
+            
             if (amount == 0)
                 return;
 
@@ -125,5 +133,26 @@ public class ProductHandlingTaskService: ITaskService
         });
 
         await _unitOfWork.ProductHandlingTasksRepository.RegisterRangeAsync(taskList);
+    }
+
+    private (int, int, int) CalculateTaskProductAmount(InstitutionProportion proportion, int counter, int currentProductAmount, int institutionAmount)
+    {
+        if (counter == 0) currentProductAmount = proportion.Product!.InitialAmount;
+
+        var amount = (int) Math.Ceiling(proportion.Value * proportion.Product!.InitialAmount / 100);
+            
+        if(counter % 2 == 1)
+            amount = (int) Math.Floor(proportion.Value * proportion.Product!.InitialAmount / 100);
+
+        if (counter++ > institutionAmount)
+        {
+            counter = 0;
+
+            amount = currentProductAmount;
+        }
+        
+        currentProductAmount -= amount;
+        
+        return (currentProductAmount, counter, amount);
     }
 }
